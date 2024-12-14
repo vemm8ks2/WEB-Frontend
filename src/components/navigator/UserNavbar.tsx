@@ -2,11 +2,18 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import SearchIcon from "@/components/icon/SearchIcon";
 import { Separator } from "@/components/ui/separator";
+import { useNavigate } from "react-router-dom";
 
 const UserNavbar = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="flex justify-between gap-6 items-center min-h-16 px-8 shadow-lg sticky top-0 bg-white z-20">
-      <h1>LOGO</h1>
+      <h1>
+        <Button variant="ghost" onClick={() => navigate("/")}>
+          LOGO
+        </Button>
+      </h1>
       <form className="relative max-w-xl w-full flex">
         <Input />
         <button className="flex items-center justify-center absolute top-0 right-1 bottom-0 w-12">
@@ -20,8 +27,14 @@ const UserNavbar = () => {
         </button>
       </form>
       <div className="flex">
-        <Button className="px-6">로그인</Button>
-        <Button variant="ghost" className="ml-2">
+        <Button onClick={() => navigate("/login")} className="px-6">
+          로그인
+        </Button>
+        <Button
+          onClick={() => navigate("/register")}
+          variant="ghost"
+          className="ml-2"
+        >
           회원가입
         </Button>
       </div>
