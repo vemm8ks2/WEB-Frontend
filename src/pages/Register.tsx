@@ -46,6 +46,7 @@ const Register = () => {
               <div className="flex flex-col space-y-2">
                 <Label htmlFor="passowrd">비밀번호</Label>
                 <Input
+                  type="password"
                   id="password"
                   name="password"
                   placeholder="비밀번호를 입력해주세요."

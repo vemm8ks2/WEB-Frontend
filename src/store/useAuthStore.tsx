@@ -13,6 +13,7 @@ interface State {
   data?: UserStore;
   isLoading: boolean;
   signin: (params: { username: string; password: string }) => void;
+  signout: () => void;
 }
 
 export const useAuthStore = create<State>((set) => ({
@@ -35,5 +36,8 @@ export const useAuthStore = create<State>((set) => ({
     } finally {
       set({ isLoading: false });
     }
+  },
+  signout: () => {
+    set({ data: undefined });
   },
 }));

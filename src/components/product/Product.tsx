@@ -1,3 +1,4 @@
+import { useAuthStore } from "@/store/useAuthStore";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Button } from "@/components/ui/button";
 import {
@@ -6,9 +7,16 @@ import {
   CardContent,
   CardFooter,
 } from "@/components/ui/card";
+import { useNavigate } from "react-router-dom";
 
 const Product = () => {
-  const handleCart = () => {};
+  const navigate = useNavigate();
+
+  const { data } = useAuthStore();
+
+  const handleCart = () => {
+    if (!data) navigate("/login");
+  };
 
   return (
     <Card className="shadow-lg border-0">

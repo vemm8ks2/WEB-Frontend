@@ -17,7 +17,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 const UserNavbar = () => {
   const navigate = useNavigate();
 
-  const { data } = useAuthStore();
+  const { data, signout } = useAuthStore();
 
   return (
     <div className="flex justify-between gap-6 items-center min-h-16 px-8 shadow-lg sticky top-0 bg-white z-20">
@@ -56,7 +56,9 @@ const UserNavbar = () => {
             </DropdownMenuTrigger>
             <DropdownMenuContent>
               <DropdownMenuItem className="p-0">
-                <button className="p-1.5 w-full text-start">로그아웃</button>
+                <button onClick={signout} className="p-1.5 w-full text-start">
+                  로그아웃
+                </button>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
