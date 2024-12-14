@@ -1,8 +1,9 @@
+import { useNavigate } from "react-router-dom";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import SearchIcon from "@/components/icon/SearchIcon";
 import { Separator } from "@/components/ui/separator";
-import { useNavigate } from "react-router-dom";
 
 const UserNavbar = () => {
   const navigate = useNavigate();
