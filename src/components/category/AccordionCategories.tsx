@@ -117,9 +117,20 @@ const AccordionCategory = ({
 }: {
   category: PreprocessedCategory;
 }) => {
+  const ml =
+    category.level === 0
+      ? "ml-0"
+      : category.level === 1
+      ? "ml-2"
+      : category.level === 2
+      ? "ml-4"
+      : category.level === 3
+      ? "ml-6"
+      : "ml-8";
+
   if (category.childCategories.length === 0) {
     return (
-      <AccordionContent className={`ml-${category.level * 2}`}>
+      <AccordionContent className={ml}>
         <a href="#" className="hover:underline">
           {category.name}
         </a>
@@ -129,7 +140,7 @@ const AccordionCategory = ({
 
   return (
     <AccordionItem value={category.id} className="border-0">
-      <AccordionTrigger className={`ml-${category.level * 2}`}>
+      <AccordionTrigger className={ml}>
         <a href="#">{category.name}</a>
       </AccordionTrigger>
       <AccordionContent className="last:pb-0">
