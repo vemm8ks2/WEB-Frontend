@@ -32,11 +32,11 @@ const Option = ({
 }) => {
   const navigate = useNavigate();
 
-  const { data } = useAuthStore();
-  const { addCartItem } = useCartStore();
+  const { data: auth } = useAuthStore();
+  const { data, addCartItem } = useCartStore();
 
   const handleOptionBtn = () => {
-    if (!data) {
+    if (!auth) {
       navigate("/login");
       return;
     }
@@ -50,15 +50,16 @@ const Option = ({
     const size = formData.get("size")?.toString();
     const quantity = formData.get("quantity")?.toString();
 
-    console.log({ size, quantity, data });
+    console.log({ size, quantity, auth });
 
-    if (!size || !quantity || !data) {
+    if (!size || !quantity || !auth) {
       return;
     }
 
     addCartItem({
-      token: data.token,
+      token: auth.token,
       cartItem: {
+        id: data?.cartItems.find((item) => item.product.id === productId)?.id,
         product: { id: productId },
         quantity: Number(quantity),
         size: size,

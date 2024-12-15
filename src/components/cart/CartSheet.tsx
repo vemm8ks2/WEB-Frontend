@@ -4,8 +4,6 @@ import { ShoppingCartIcon } from "lucide-react";
 import { useAuthStore } from "@/store/useAuthStore";
 import { useCartStore } from "@/store/useCartStore";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import Loader from "@/components/ui/Loader";
 import {
   Sheet,
@@ -48,7 +46,7 @@ const CartSheet = () => {
             {data ? (
               <>
                 {data.cartItems.map((cartItem) => (
-                  <CartItem key={cartItem.cartId} cartItem={cartItem} />
+                  <CartItem key={cartItem.id} cartItem={cartItem} />
                 ))}
               </>
             ) : (

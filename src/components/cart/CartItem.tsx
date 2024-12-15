@@ -1,5 +1,7 @@
 import { MinusIcon, PlusIcon } from "lucide-react";
 
+import { useCartStore } from "@/store/useCartStore";
+import { useAuthStore } from "@/store/useAuthStore";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import {
@@ -10,9 +12,30 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 
-import type { CartItem } from "@/store/useCartStore";
+import type { ResponseCartItem } from "@/store/useCartStore";
 
-const CartItem = ({ cartItem }: { cartItem: CartItem }) => {
+const CartItem = ({ cartItem }: { cartItem: ResponseCartItem }) => {
+  const { data } = useAuthStore();
+  const { updateQuantity, removeCartItem } = useCartStore();
+
+  console.log(cartItem);
+
+  const handleQuantity = (qty: number) => {
+    if (!data) return;
+
+    updateQuantity({
+      token: data.token,
+      quantity: cartItem.quantity + qty,
+      cartItemId: cartItem.id.toString(),
+    });
+  };
+
+  const handleDelete = () => {
+    if (!data) return;
+
+    removeCartItem({ token: data.token, cartItemId: cartItem.id.toString() });
+  };
+
   return (
     <Card className="border-0 shadow-lg">
       <CardHeader>
@@ -28,6 +51,7 @@ const CartItem = ({ cartItem }: { cartItem: CartItem }) => {
           <Separator />
           <div className="flex items-center gap-3 shadow rounded-full">
             <Button
+              onClick={() => handleQuantity(-1)}
               variant="ghost"
               className="rounded-full p-0 w-10 h-10 text-zinc-500"
             >
@@ -35,6 +59,7 @@ const CartItem = ({ cartItem }: { cartItem: CartItem }) => {
             </Button>
             <p>{cartItem.quantity}</p>
             <Button
+              onClick={() => handleQuantity(1)}
               variant="ghost"
               className="rounded-full p-0 w-10 h-10 text-zinc-500"
             >
@@ -44,7 +69,7 @@ const CartItem = ({ cartItem }: { cartItem: CartItem }) => {
         </div>
       </CardContent>
       <CardFooter>
-        <Button variant="destructive" className="w-full">
+        <Button onClick={handleDelete} variant="destructive" className="w-full">
           아이템 삭제
         </Button>
       </CardFooter>

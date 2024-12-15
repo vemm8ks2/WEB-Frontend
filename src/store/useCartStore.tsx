@@ -4,21 +4,22 @@ import { ResponseUser } from "@/store/useAuthStore";
 
 interface ResponseCart {
   id: number;
-  cartItems: CartItem[];
+  cartItems: ResponseCartItem[];
   user: ResponseUser;
 }
 
-export interface CartItem {
-  cartId: number;
+export interface ResponseCartItem {
+  id: number;
   quantity: number;
   size: string;
   product: Product;
 }
 
 interface CartItemParams {
-  cartId: number;
+  id: number;
   quantity: number;
   size: string;
+  cartId: number;
   product: Pick<Product, "id">;
 }
 
@@ -29,6 +30,12 @@ interface State {
   addCartItem: (params: {
     token: string;
     cartItem: Omit<CartItemParams, "cartId">;
+  }) => void;
+  removeCartItem: (params: { token: string; cartItemId: string }) => void;
+  updateQuantity: (params: {
+    token: string;
+    cartItemId: string;
+    quantity: number;
   }) => void;
 }
 
@@ -63,6 +70,53 @@ export const useCartStore = create<State>((set) => ({
         },
         body: JSON.stringify(cartItem),
       });
+      const data = await res.json();
+
+      set({ data });
+    } catch (e) {
+      console.log(e);
+    }
+
+    set({ isLoading: false });
+  },
+  removeCartItem: async ({ token, cartItemId }) => {
+    set({ isLoading: true });
+
+    try {
+      const res = await fetch(
+        `http://localhost:5454/api/user/cart-item/delete/${cartItemId}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const data = await res.json();
+
+      set({ data });
+    } catch (e) {
+      console.log(e);
+    }
+
+    set({ isLoading: false });
+  },
+  updateQuantity: async ({ token, cartItemId, quantity }) => {
+    set({ isLoading: true });
+
+    try {
+      const res = await fetch(
+        `http://localhost:5454/api/user/cart-item/modify/${cartItemId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(quantity),
+        }
+      );
       const data = await res.json();
 
       set({ data });
