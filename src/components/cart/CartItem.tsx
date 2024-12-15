@@ -41,7 +41,7 @@ const CartItem = ({ cartItem }: { cartItem: ResponseCartItem }) => {
       <CardHeader>
         <CardTitle>{cartItem.product.title}</CardTitle>
       </CardHeader>
-      <CardContent className="flex justify-between">
+      <CardContent className="flex justify-between gap-2">
         <img
           src={cartItem.product.imageUrl}
           className="w-36 shadow rounded-md"
@@ -49,7 +49,7 @@ const CartItem = ({ cartItem }: { cartItem: ResponseCartItem }) => {
         <div className="flex flex-col justify-center gap-4 text-end">
           <p className="text-sm">사이즈 : {cartItem.size}</p>
           <Separator />
-          <div className="flex items-center gap-3 shadow rounded-full">
+          <div className="flex items-center justify-between w-28 shadow rounded-full">
             <Button
               onClick={() => handleQuantity(-1)}
               variant="ghost"
@@ -70,7 +70,7 @@ const CartItem = ({ cartItem }: { cartItem: ResponseCartItem }) => {
       </CardContent>
       <CardFooter>
         <Button onClick={handleDelete} variant="destructive" className="w-full">
-          아이템 삭제
+          장바구니 삭제
         </Button>
       </CardFooter>
     </Card>

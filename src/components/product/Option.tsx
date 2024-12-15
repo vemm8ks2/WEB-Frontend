@@ -35,6 +35,8 @@ const Option = ({
   const { data: auth } = useAuthStore();
   const { data, addCartItem } = useCartStore();
 
+  console.log(data);
+
   const handleOptionBtn = () => {
     if (!auth) {
       navigate("/login");
@@ -59,7 +61,9 @@ const Option = ({
     addCartItem({
       token: auth.token,
       cartItem: {
-        id: data?.cartItems.find((item) => item.product.id === productId)?.id,
+        id: data?.cartItems.find(
+          (item) => item.product.id === productId && item.size === size
+        )?.id,
         product: { id: productId },
         quantity: Number(quantity),
         size: size,

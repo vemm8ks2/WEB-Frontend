@@ -78,7 +78,13 @@ export const useCartStore = create<State>((set) => ({
 
         return {
           ...prev,
-          data: { ...prev.data, cartItems: [...prev.data.cartItems, data] },
+          data: {
+            ...prev.data,
+            cartItems: [
+              ...prev.data.cartItems.filter((item) => item.id !== data.id),
+              data,
+            ],
+          },
         };
       });
     } catch (e) {
