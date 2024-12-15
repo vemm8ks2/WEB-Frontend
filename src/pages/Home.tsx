@@ -31,7 +31,7 @@ const Home = () => {
 
   return (
     <>
-      <main className="max-w-[1940px] flex-1 mx-auto p-5 lg:flex lg:justify-center lg:gap-6">
+      <main className="max-w-screen-2xl flex-1 mx-auto p-5 lg:flex lg:justify-center lg:gap-6">
         <Card className="sticky top-[84px] w-72 h-min rounded-md border-0 shadow-lg hidden lg:block">
           <CardHeader>
             <CardTitle>필터</CardTitle>

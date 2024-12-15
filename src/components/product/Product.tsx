@@ -13,7 +13,7 @@ const Product = ({ product }: { product: Product }) => {
   console.log(product);
 
   return (
-    <Card className="shadow-lg border-0">
+    <Card className="shadow-lg border-0 flex flex-col">
       <CardHeader>
         <AspectRatio ratio={3 / 4}>
           <img
@@ -22,19 +22,21 @@ const Product = ({ product }: { product: Product }) => {
           />
         </AspectRatio>
       </CardHeader>
-      <CardContent>
-        <p className="leading-7">
-          {product.title}
-          <br />
-          {product.price.toLocaleString()}원
-        </p>
-      </CardContent>
-      <CardFooter>
-        <Option
-          productId={product.id}
-          productOptions={product.productOptions}
-        />
-      </CardFooter>
+      <div className="flex flex-col justify-between flex-1">
+        <CardContent>
+          <p className="leading-7">
+            {product.title}
+            <br />
+            {product.price.toLocaleString()}원
+          </p>
+        </CardContent>
+        <CardFooter>
+          <Option
+            productId={product.id}
+            productOptions={product.productOptions}
+          />
+        </CardFooter>
+      </div>
     </Card>
   );
 };
