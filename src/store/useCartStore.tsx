@@ -1,36 +1,61 @@
 import { create } from "zustand";
+import { Product } from "@/store/useProductStore";
+import { ResponseUser } from "@/store/useAuthStore";
 
 interface ResponseCart {
-  cartItem: [];
   id: number;
-  totalPrice: number;
+  cartItems: CartItem[];
+  user: ResponseUser;
 }
 
-interface CartItem {
-  price: number;
-  quantity: number;
-  totalPrice: number;
+export interface CartItem {
   cartId: number;
-  productId: number;
+  quantity: number;
+  size: string;
+  product: Product;
+}
+
+interface CartItemParams {
+  cartId: number;
+  quantity: number;
+  size: string;
+  product: Pick<Product, "id">;
 }
 
 interface State {
   data?: ResponseCart;
   isLoading: boolean;
+  getCart: (params: { token: string }) => void;
   addCartItem: (params: {
     token: string;
-    cartItem: Omit<CartItem, "cartId">;
+    cartItem: Omit<CartItemParams, "cartId">;
   }) => void;
 }
 
 export const useCartStore = create<State>((set) => ({
   data: undefined,
   isLoading: false,
-  addCartItem: async ({ token, cartItem }) => {
-    try {
-      set({ isLoading: true });
+  getCart: async ({ token }) => {
+    set({ isLoading: true });
 
-      await fetch("http://localhost:5454/api/user/cart-item", {
+    try {
+      const res = await fetch("http://localhost:5454/api/user/cart", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data: ResponseCart = await res.json();
+
+      set({ data });
+    } catch (e) {
+      console.log(e);
+    }
+
+    set({ isLoading: false });
+  },
+  addCartItem: async ({ token, cartItem }) => {
+    set({ isLoading: true });
+
+    try {
+      const res = await fetch("http://localhost:5454/api/user/cart-item", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -38,10 +63,13 @@ export const useCartStore = create<State>((set) => ({
         },
         body: JSON.stringify(cartItem),
       });
+      const data = await res.json();
+
+      set({ data });
     } catch (e) {
       console.log(e);
-    } finally {
-      set({ isLoading: false });
     }
+
+    set({ isLoading: false });
   },
 }));

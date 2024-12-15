@@ -59,11 +59,9 @@ const Option = ({
     addCartItem({
       token: data.token,
       cartItem: {
-        price: 42500,
-        productId: productId,
+        product: { id: productId },
         quantity: Number(quantity),
-        totalPrice: 42500 * 3,
-        // TODO: size 추가, price, totalPrice 데이터가 정말 필요한가?
+        size: size,
       },
     });
   };

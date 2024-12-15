@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { ShoppingCartIcon, UserIcon } from "lucide-react";
+import { UserIcon } from "lucide-react";
 
 import { useAuthStore } from "@/store/useAuthStore";
 import { Button } from "@/components/ui/button";
@@ -12,7 +12,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import CartSheet from "@/components/cart/CartSheet";
 
 const UserNavbar = () => {
   const navigate = useNavigate();
@@ -22,7 +22,7 @@ const UserNavbar = () => {
   return (
     <div className="flex justify-between gap-6 items-center min-h-16 px-8 shadow-lg sticky top-0 bg-white z-20">
       <h1>
-        <Button variant="ghost" onClick={() => navigate("/")}>
+        <Button variant="link" onClick={() => navigate("/")}>
           LOGO
         </Button>
       </h1>
@@ -40,14 +40,7 @@ const UserNavbar = () => {
       </form>
       {data ? (
         <div className="flex items-center gap-3">
-          <Sheet>
-            <SheetTrigger asChild>
-              <Button variant="ghost" className="w-10 h-10 rounded-full">
-                <ShoppingCartIcon className="text-zinc-700" />
-              </Button>
-            </SheetTrigger>
-            <SheetContent></SheetContent>
-          </Sheet>
+          <CartSheet />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline" className="w-10 h-10 rounded-full">

@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-interface ResponseUser {
+export interface ResponseUser {
   username: string;
   role: "USER";
   gender: "MALE" | "FEMALE" | "OTHERS";
