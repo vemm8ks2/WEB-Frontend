@@ -7,11 +7,16 @@ interface ResponseUser {
   birthDate: string | null;
 }
 
-type UserStore = { token: string; refreshToken: string; user: ResponseUser };
+type UserStore = {
+  token: string;
+  refreshToken: string;
+  // user: ResponseUser;
+};
 
 interface State {
   data?: UserStore;
   isLoading: boolean;
+  setToken: () => void;
   signin: (params: { username: string; password: string }) => void;
   signout: () => void;
 }
@@ -19,6 +24,12 @@ interface State {
 export const useAuthStore = create<State>((set) => ({
   data: undefined,
   isLoading: false,
+  setToken: () => {
+    const token = localStorage.getItem("accessToken");
+    const refreshToken = localStorage.getItem("refreshToken");
+
+    if (token && refreshToken) set({ data: { token: token, refreshToken } });
+  },
   signin: async ({ username, password }) => {
     try {
       set({ isLoading: true });
@@ -31,6 +42,9 @@ export const useAuthStore = create<State>((set) => ({
       const data: UserStore = await res.json();
 
       set({ data, isLoading: false });
+
+      localStorage.setItem("accessToken", data.token);
+      localStorage.setItem("refreshToken", data.refreshToken);
     } catch (e) {
       console.log(e);
     } finally {
@@ -38,6 +52,9 @@ export const useAuthStore = create<State>((set) => ({
     }
   },
   signout: () => {
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+
     set({ data: undefined });
   },
 }));
