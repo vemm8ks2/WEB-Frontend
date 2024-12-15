@@ -16,7 +16,7 @@ export interface ResponseCartItem {
 }
 
 interface CartItemParams {
-  id: number;
+  id?: number;
   quantity: number;
   size: string;
   cartId: number;
