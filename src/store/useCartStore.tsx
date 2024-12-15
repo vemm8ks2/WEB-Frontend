@@ -70,9 +70,17 @@ export const useCartStore = create<State>((set) => ({
         },
         body: JSON.stringify(cartItem),
       });
-      const data = await res.json();
+      const data: ResponseCartItem = await res.json();
+      console.log(data);
 
-      set({ data });
+      set((prev) => {
+        if (!prev.data) return prev;
+
+        return {
+          ...prev,
+          data: { ...prev.data, cartItems: [...prev.data.cartItems, data] },
+        };
+      });
     } catch (e) {
       console.log(e);
     }
