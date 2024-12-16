@@ -1,12 +1,13 @@
 import { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 
-import { useAuthStore } from "@/store/useAuthStore";
 import Home from "@/pages/Home";
 import Login from "@/pages/Login";
 import Register from "@/pages/Register";
 import Order from "@/pages/Order";
+import OrderHistory from "@/pages/OrderHistory";
 import UserNavbar from "@/components/navigator/UserNavbar";
+import { useAuthStore } from "@/store/useAuthStore";
 
 const UserRoutes = () => {
   const { data, setToken } = useAuthStore();
@@ -21,7 +22,10 @@ const UserRoutes = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         {data ? (
-          <Route path="/order" element={<Order />} />
+          <>
+            <Route path="/order" element={<Order />} />
+            <Route path="/order-history" element={<OrderHistory />} />
+          </>
         ) : (
           <>
             <Route path="/login" element={<Login />} />

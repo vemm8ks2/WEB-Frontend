@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import { CircleAlert } from "lucide-react";
 
-import { PaymentMethod, useOrderStore } from "@/store/useOrederStore";
+import { PaymentMethod, useOrderStore } from "@/store/useOrderStore";
 import { useAuthStore } from "@/store/useAuthStore";
 import { useCartStore } from "@/store/useCartStore";
 import CartItem from "@/components/cart/CartItem";
@@ -50,6 +50,8 @@ const Order = () => {
     (acc, current) => acc + current.product.price * current.quantity,
     0
   );
+
+  console.log(totalPrice);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

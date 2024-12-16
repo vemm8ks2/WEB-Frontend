@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { Product } from "@/store/useProductStore";
 
 export enum PaymentMethod {
   digitalWallet = "DIGITAL_WALLET",
@@ -6,8 +7,35 @@ export enum PaymentMethod {
   depositWithoutPassbook = "DEPOSIT_WITHOUT_PASSBOOK",
 }
 
+export interface ResponseOrderItem {
+  id: number;
+  quantity: number;
+  size: string;
+  price: number;
+  cartId: number;
+  product: Product;
+}
+
+interface ResponseOrder {
+  deliveredAt: Date;
+  id: number;
+  orderItems: ResponseOrderItem[];
+  paymentMethod: PaymentMethod;
+  receiverName?: string;
+  receiverPhone?: string;
+  shippingAddress: string;
+  totalPrice: number;
+}
+
+interface ResponseData {
+  message: string;
+  data: ResponseOrder[];
+}
+
 interface State {
+  orders: ResponseOrder[];
   isLoading: boolean;
+  getOrderList: (params: { token: string }) => void;
   saveOrder: (params: {
     token: string;
     shippingAddress: string;
@@ -19,7 +47,27 @@ interface State {
 }
 
 export const useOrderStore = create<State>((set) => ({
+  orders: [],
   isLoading: false,
+  getOrderList: async ({ token }) => {
+    set({ isLoading: true });
+
+    try {
+      const res = await fetch("http://localhost:5454/api/user/order/history", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const { data: orders }: ResponseData = await res.json();
+
+      set({ orders });
+    } catch (e) {
+      console.log(e);
+    }
+
+    set({ isLoading: false });
+  },
   saveOrder: async ({
     token,
     shippingAddress,

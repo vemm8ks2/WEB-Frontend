@@ -2,17 +2,18 @@ import { useNavigate } from "react-router-dom";
 import { UserIcon } from "lucide-react";
 
 import { useAuthStore } from "@/store/useAuthStore";
+import SearchIcon from "@/components/icon/SearchIcon";
+import CartSheet from "@/components/cart/CartSheet";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import SearchIcon from "@/components/icon/SearchIcon";
 import { Separator } from "@/components/ui/separator";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import CartSheet from "@/components/cart/CartSheet";
 
 const UserNavbar = () => {
   const navigate = useNavigate();
@@ -48,6 +49,15 @@ const UserNavbar = () => {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
+              <DropdownMenuItem className="p-0">
+                <button
+                  onClick={() => navigate("/order-history")}
+                  className="p-1.5 w-full text-start"
+                >
+                  주문목록
+                </button>
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
               <DropdownMenuItem className="p-0">
                 <button onClick={signout} className="p-1.5 w-full text-start">
                   로그아웃
