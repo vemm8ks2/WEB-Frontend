@@ -33,6 +33,8 @@ export const useProductStore = create<State>((set) => ({
   products: [],
   isLoading: false,
   getProducts: async () => {
+    set({ isLoading: true });
+
     try {
       const res = await fetch("http://localhost:5454/api/public/product");
       const data = await res.json();

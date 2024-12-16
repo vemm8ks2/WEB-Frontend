@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { nanoid } from "nanoid";
+import { PopoverClose } from "@radix-ui/react-popover";
 
 import type { ProductOption } from "@/store/useProductStore";
 import { Button } from "@/components/ui/button";
@@ -35,8 +36,6 @@ const Option = ({
   const { data: auth } = useAuthStore();
   const { data, addCartItem } = useCartStore();
 
-  console.log(data);
-
   const handleOptionBtn = () => {
     if (!auth) {
       navigate("/login");
@@ -52,11 +51,7 @@ const Option = ({
     const size = formData.get("size")?.toString();
     const quantity = formData.get("quantity")?.toString();
 
-    console.log({ size, quantity, auth });
-
-    if (!size || !quantity || !auth) {
-      return;
-    }
+    if (!size || !quantity || !auth) return;
 
     addCartItem({
       token: auth.token,
@@ -122,9 +117,11 @@ const Option = ({
                 className="col-span-3 h-8"
               />
             </div>
-            <Button type="submit" variant="outline" className="mt-2">
-              장바구니 담기
-            </Button>
+            <PopoverClose asChild>
+              <Button type="submit" variant="outline" className="mt-2">
+                장바구니 담기
+              </Button>
+            </PopoverClose>
           </form>
         </div>
       </PopoverContent>

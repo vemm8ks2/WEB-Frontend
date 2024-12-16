@@ -32,6 +32,7 @@ interface State {
     cartItem: Omit<CartItemParams, "cartId">;
   }) => void;
   removeCartItem: (params: { token: string; cartItemId: string }) => void;
+  removeAllCartItem: (params: { token: string }) => void;
   updateQuantity: (params: {
     token: string;
     cartItemId: string;
@@ -99,6 +100,29 @@ export const useCartStore = create<State>((set) => ({
     try {
       const res = await fetch(
         `http://localhost:5454/api/user/cart-item/delete/${cartItemId}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const data = await res.json();
+
+      set({ data });
+    } catch (e) {
+      console.log(e);
+    }
+
+    set({ isLoading: false });
+  },
+  removeAllCartItem: async ({ token }) => {
+    set({ isLoading: true });
+
+    try {
+      const res = await fetch(
+        `http://localhost:5454/api/user/cart-item/delete/all`,
         {
           method: "DELETE",
           headers: {

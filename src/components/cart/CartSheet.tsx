@@ -1,10 +1,13 @@
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { ShoppingCartIcon } from "lucide-react";
 
 import { useAuthStore } from "@/store/useAuthStore";
 import { useCartStore } from "@/store/useCartStore";
-import { Button } from "@/components/ui/button";
+import CartItem from "@/components/cart/CartItem";
 import Loader from "@/components/ui/Loader";
+import { Button } from "@/components/ui/button";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   Sheet,
   SheetClose,
@@ -15,17 +18,17 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import CartItem from "./CartItem";
-import { ScrollArea } from "../ui/scroll-area";
 
 const CartSheet = () => {
+  const navigate = useNavigate();
+
   const { data: auth } = useAuthStore();
   const { data, getCart, isLoading } = useCartStore();
 
   useEffect(() => {
     if (!auth) return;
     if (!data) getCart({ token: auth.token });
-  }, []);
+  }, [auth, data, getCart]);
 
   if (!auth) <></>;
 
@@ -41,7 +44,7 @@ const CartSheet = () => {
           <SheetTitle>장바구니</SheetTitle>
           <SheetDescription>내가 추가한 장바구니 목록입니다.</SheetDescription>
         </SheetHeader>
-        <ScrollArea className="mt-2 h-5/6 rounded-md">
+        <ScrollArea className="mt-2 h-5/6 rounded-md shadow-sm">
           <div className="flex flex-col gap-6 mx-2 my-5">
             {data ? (
               <>
@@ -56,8 +59,11 @@ const CartSheet = () => {
         </ScrollArea>
         <SheetFooter>
           <SheetClose asChild>
-            <Button type="submit" className="w-full mt-8 py-5">
-              결제하기
+            <Button
+              onClick={() => navigate("/order")}
+              className="w-full mt-8 py-5"
+            >
+              주문하기
             </Button>
           </SheetClose>
         </SheetFooter>

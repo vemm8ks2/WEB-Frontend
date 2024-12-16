@@ -14,11 +14,15 @@ import {
 
 import type { ResponseCartItem } from "@/store/useCartStore";
 
-const CartItem = ({ cartItem }: { cartItem: ResponseCartItem }) => {
+const CartItem = ({
+  cartItem,
+  activeDeleteBtn = true,
+}: {
+  cartItem: ResponseCartItem;
+  activeDeleteBtn?: boolean;
+}) => {
   const { data } = useAuthStore();
   const { updateQuantity, removeCartItem } = useCartStore();
-
-  console.log(cartItem);
 
   const handleQuantity = (qty: number) => {
     if (!data) return;
@@ -44,10 +48,15 @@ const CartItem = ({ cartItem }: { cartItem: ResponseCartItem }) => {
       <CardContent className="flex justify-between gap-2">
         <img
           src={cartItem.product.imageUrl}
-          className="w-36 shadow rounded-md"
+          className="w-36 h-36 shadow rounded-md object-cover"
         />
         <div className="flex flex-col justify-center gap-4 text-end">
-          <p className="text-sm">사이즈 : {cartItem.size}</p>
+          <div className="flex flex-col gap-1">
+            <p className="text-sm">사이즈 : {cartItem.size}</p>
+            <p className="text-sm">
+              상품가 : {cartItem.product.price.toLocaleString()}원
+            </p>
+          </div>
           <Separator />
           <div className="flex items-center justify-between w-28 shadow rounded-full">
             <Button
@@ -66,13 +75,24 @@ const CartItem = ({ cartItem }: { cartItem: ResponseCartItem }) => {
               <PlusIcon />
             </Button>
           </div>
+          <Separator />
+          <p className="text-sm">
+            합계 :{" "}
+            {(cartItem.product.price * cartItem.quantity).toLocaleString()}원
+          </p>
         </div>
       </CardContent>
-      <CardFooter>
-        <Button onClick={handleDelete} variant="destructive" className="w-full">
-          장바구니 삭제
-        </Button>
-      </CardFooter>
+      {activeDeleteBtn && (
+        <CardFooter>
+          <Button
+            onClick={handleDelete}
+            variant="destructive"
+            className="w-full"
+          >
+            장바구니 삭제
+          </Button>
+        </CardFooter>
+      )}
     </Card>
   );
 };
