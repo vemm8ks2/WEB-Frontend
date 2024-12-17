@@ -27,7 +27,7 @@ const Home = () => {
 
   useEffect(() => {
     getProducts();
-  }, []);
+  }, [getProducts]);
 
   return (
     <>
