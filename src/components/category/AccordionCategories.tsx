@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import {
   Accordion,
@@ -7,77 +7,17 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import Loader from "@/components/ui/Loader";
-
-interface ResponseCategory {
-  id: string;
-  name: string;
-  level: number;
-  parentCategory: ResponseCategory | null;
-}
-
-interface PreprocessedCategory {
-  id: string;
-  name: string;
-  level: number;
-  parentCategoryId: string;
-  childCategories: PreprocessedCategory[];
-}
+import {
+  PreprocessedCategory,
+  useCategoryStore,
+} from "@/store/useCategoryStore";
 
 const AccordionCategories = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [categories, setCategories] = useState<PreprocessedCategory[]>([]);
+  const { categories, isLoading, getCategories } = useCategoryStore();
 
   useEffect(() => {
-    const fn = async () => {
-      try {
-        setIsLoading(true);
-
-        const res = await fetch("http://localhost:5454/api/public/category");
-        const data: ResponseCategory[] = await res.json();
-
-        const mapped: { [key: string]: PreprocessedCategory } = {};
-        const organized: PreprocessedCategory[][] = [];
-
-        data.forEach((category) => {
-          const preprocessed: PreprocessedCategory = {
-            id: category.id,
-            level: category.level,
-            name: category.name,
-            parentCategoryId: category.parentCategory
-              ? category.parentCategory.id
-              : "0",
-            childCategories: [],
-          };
-
-          mapped[preprocessed.id] = preprocessed;
-
-          if (organized[preprocessed.level])
-            organized[preprocessed.level].push(preprocessed);
-          else organized[preprocessed.level] = [preprocessed];
-        });
-
-        const rootCategories: PreprocessedCategory[] = [];
-
-        organized.reverse().forEach((categries) => {
-          categries.forEach((category) => {
-            if (category.level === 0) {
-              rootCategories.push(mapped[category.id]);
-            } else {
-              mapped[category.parentCategoryId].childCategories.push(category);
-            }
-          });
-        });
-
-        setCategories(rootCategories);
-      } catch (e) {
-        console.log(e);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fn();
-  }, []);
+    getCategories();
+  }, [getCategories]);
 
   if (isLoading)
     return (

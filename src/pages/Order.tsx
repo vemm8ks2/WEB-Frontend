@@ -51,8 +51,6 @@ const Order = () => {
     0
   );
 
-  console.log(totalPrice);
-
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 

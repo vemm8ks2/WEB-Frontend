@@ -12,7 +12,7 @@ export function MainNav({
     >
       <Button variant="link">
         <a
-          href="/admin/admin"
+          href="/admin"
           className="text-sm font-medium transition-colors hover:text-primary"
         >
           개요
@@ -20,7 +20,7 @@ export function MainNav({
       </Button>
       <Button variant="link">
         <a
-          href="/admin/products"
+          href="/admin/product"
           className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
         >
           상품목록
@@ -28,7 +28,7 @@ export function MainNav({
       </Button>
       <Button variant="link">
         <a
-          href="/admin/orders"
+          href="/admin/order"
           className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
         >
           주문목록
@@ -36,7 +36,7 @@ export function MainNav({
       </Button>
       <Button variant="link">
         <a
-          href="/admin/customers"
+          href="/admin/customer"
           className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
         >
           고객목록

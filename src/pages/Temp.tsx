@@ -1,5 +1,5 @@
 import { ChangeEvent, useState } from "react";
-import supabase from "../../supabase/supabaseClient";
+import supabase from "@/lib/supabaseClient";
 
 const Temp = () => {
   const [file, setFile] = useState<File | null>(null);

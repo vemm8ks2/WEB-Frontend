@@ -31,9 +31,9 @@ export const useAuthStore = create<State>((set) => ({
     if (token && refreshToken) set({ data: { token: token, refreshToken } });
   },
   signin: async ({ username, password }) => {
-    try {
-      set({ isLoading: true });
+    set({ isLoading: true });
 
+    try {
       const res = await fetch("http://localhost:5454/api/auth/signin", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -41,15 +41,15 @@ export const useAuthStore = create<State>((set) => ({
       });
       const data: UserStore = await res.json();
 
-      set({ data, isLoading: false });
+      set({ data });
 
       localStorage.setItem("accessToken", data.token);
       localStorage.setItem("refreshToken", data.refreshToken);
     } catch (e) {
       console.log(e);
-    } finally {
-      set({ isLoading: false });
     }
+
+    set({ isLoading: false });
   },
   signout: () => {
     localStorage.removeItem("accessToken");
