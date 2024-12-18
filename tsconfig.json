@@ -9,5 +9,8 @@
     "paths": {
       "@/*": ["./src/*"]
     }
-  }
+  },
+  "include": [
+    "/types/**/*.d.ts" // types 폴더 내의 d.ts 파일도 포함시킴
+  ]
 }

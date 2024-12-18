@@ -8,6 +8,7 @@ import Order from "@/pages/Order";
 import OrderHistory from "@/pages/OrderHistory";
 import UserNavbar from "@/components/navigator/UserNavbar";
 import { useAuthStore } from "@/store/useAuthStore";
+import Temp from "@/pages/Temp";
 
 const UserRoutes = () => {
   const { data, setToken } = useAuthStore();
@@ -21,6 +22,7 @@ const UserRoutes = () => {
       <UserNavbar />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/temp" element={<Temp />} />
         {data ? (
           <>
             <Route path="/order" element={<Order />} />
