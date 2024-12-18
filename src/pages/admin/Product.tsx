@@ -3,6 +3,8 @@ import { nanoid } from "nanoid";
 
 import supabase, { getProductImageUrl } from "@/lib/supabaseClient";
 import { useCategoryStore } from "@/store/useCategoryStore";
+import { ProductOption, useProductStore } from "@/store/useProductStore";
+import { useAuthStore } from "@/store/useAuthStore";
 import SelectCategories from "@/components/category/SelectCategories";
 import { Button } from "@/components/ui/button";
 import {
@@ -22,8 +24,6 @@ import {
 } from "@/components/ui/select";
 
 import type { FormEvent } from "react";
-import { ProductOption, useProductStore } from "@/store/useProductStore";
-import { useAuthStore } from "@/store/useAuthStore";
 
 const Product = () => {
   const [option, setOption] = useState(["", "", ""]);
@@ -46,8 +46,7 @@ const Product = () => {
       throw error;
     }
 
-    console.log("File uploaded successfully:", data);
-    return data; // 업로드된 파일 정보 반환
+    return data;
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -65,15 +64,6 @@ const Product = () => {
     const productQuantity = formData.getAll("product-quantity") as
       | string[]
       | null;
-
-    console.log({
-      productImage,
-      productPrice,
-      productTitle,
-      productCategory,
-      productOption,
-      productQuantity,
-    });
 
     if (
       !productImage ||

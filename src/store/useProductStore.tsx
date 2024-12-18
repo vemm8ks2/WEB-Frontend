@@ -37,7 +37,7 @@ interface State {
     params: {
       token: string;
     } & CreateProductDTO
-  ) => void;
+  ) => Promise<{ message: string; statusCode: number }>;
 }
 
 export const useProductStore = create<State>((set) => ({
@@ -61,6 +61,8 @@ export const useProductStore = create<State>((set) => ({
     const { token, title, price, imageUrl, categoryId, productOptions } =
       params;
 
+    const result = { message: "", statusCode: -1 };
+
     set({ isLoading: true });
 
     try {
@@ -79,11 +81,15 @@ export const useProductStore = create<State>((set) => ({
         }),
       });
       const data = await res.json();
-      console.log(data);
+
+      result.message = data.message;
+      result.statusCode = res.status;
     } catch (e) {
       console.log(e);
     }
 
     set({ isLoading: false });
+
+    return result;
   },
 }));

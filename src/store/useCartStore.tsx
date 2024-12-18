@@ -1,4 +1,5 @@
 import { create } from "zustand";
+
 import { Product } from "@/store/useProductStore";
 import { ResponseUser } from "@/store/useAuthStore";
 
@@ -72,7 +73,6 @@ export const useCartStore = create<State>((set) => ({
         body: JSON.stringify(cartItem),
       });
       const data: ResponseCartItem = await res.json();
-      console.log(data);
 
       set((prev) => {
         if (!prev.data) return prev;

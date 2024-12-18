@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 
+import { cn } from "@/lib/utils";
 import {
   Accordion,
   AccordionContent,
@@ -40,20 +41,9 @@ const AccordionCategory = ({
 }: {
   category: PreprocessedCategory;
 }) => {
-  const ml =
-    category.level === 0
-      ? "ml-0"
-      : category.level === 1
-      ? "ml-2"
-      : category.level === 2
-      ? "ml-4"
-      : category.level === 3
-      ? "ml-6"
-      : "ml-8";
-
   if (category.childCategories.length === 0) {
     return (
-      <AccordionContent className={ml}>
+      <AccordionContent className={cn(`ml-${category.level * 2}`)}>
         <a href="#" className="hover:underline">
           {category.name}
         </a>
@@ -63,7 +53,7 @@ const AccordionCategory = ({
 
   return (
     <AccordionItem value={category.id} className="border-0">
-      <AccordionTrigger className={ml}>
+      <AccordionTrigger className={cn(`ml-${category.level * 2}`)}>
         <a href="#">{category.name}</a>
       </AccordionTrigger>
       <AccordionContent className="last:pb-0">

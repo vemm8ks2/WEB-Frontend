@@ -10,7 +10,6 @@ export interface ResponseUser {
 type UserStore = {
   token: string;
   refreshToken: string;
-  // user: ResponseUser;
 };
 
 interface State {

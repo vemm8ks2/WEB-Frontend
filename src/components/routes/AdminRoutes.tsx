@@ -1,8 +1,6 @@
-import { useEffect } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { Search } from "lucide-react";
 
-import { useAuthStore } from "@/store/useAuthStore";
 import Dashboard from "@/pages/admin/Dashboard";
 import Product from "@/pages/admin/Product";
 import TeamSwitcher from "@/components/dashboard/team-switcher";
@@ -10,16 +8,6 @@ import { MainNav } from "@/components/dashboard/main-nav";
 import { UserNav } from "@/components/dashboard/user-nav";
 
 const AdminRoutes = () => {
-  const navigate = useNavigate();
-
-  const { data, setToken } = useAuthStore();
-
-  useEffect(() => {
-    setToken();
-  }, [setToken]);
-
-  if (!data) navigate("/");
-
   return (
     <div className="w-[1540px] mx-auto">
       <div className="border-b">
