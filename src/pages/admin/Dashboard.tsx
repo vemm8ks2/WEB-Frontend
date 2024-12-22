@@ -3,13 +3,7 @@
  * https://github.com/luisFilipePT/shadcn-ui-theme-explorer/tree/main/app/%5Btheme%5D/dashboard
  */
 
-import {
-  Activity,
-  CreditCard,
-  DollarSign,
-  Download,
-  Users,
-} from "lucide-react";
+import { Activity, Download } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -23,6 +17,9 @@ import { CalendarDateRangePicker } from "@/components/dashboard/date-range-picke
 import { Overview } from "@/components/dashboard/overview";
 import { RecentSales } from "@/components/dashboard/recent-sales";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import TotalSalesOfThisMonth from "@/components/dashboard/overview/total-sales-of-this-month";
+import SignupUsersOfThisMonth from "@/components/dashboard/overview/signup-users-of-this-month";
+import OrdersNumberOfThisMonth from "@/components/dashboard/overview/orders-number-of-this-month";
 
 export default function Dashboard() {
   return (
@@ -52,48 +49,9 @@ export default function Dashboard() {
         </TabsList>
         <TabsContent value="overview" className="space-y-4">
           <div className="grid gap-4 grid-cols-4">
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  이번 달 총 판매액
-                </CardTitle>
-                <DollarSign className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">$45,231.89</div>
-                <p className="text-xs text-muted-foreground">
-                  전달 대비 +20.1% 상승
-                </p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  이번 달 신규 고객 수
-                </CardTitle>
-                <Users className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">+2350</div>
-                <p className="text-xs text-muted-foreground">
-                  전달 대비 +180.1% 상승
-                </p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  이번 달 상품 판매 개수
-                </CardTitle>
-                <CreditCard className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">+12,234</div>
-                <p className="text-xs text-muted-foreground">
-                  전달 대비 +19% 상승
-                </p>
-              </CardContent>
-            </Card>
+            <TotalSalesOfThisMonth />
+            <SignupUsersOfThisMonth />
+            <OrdersNumberOfThisMonth />
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
