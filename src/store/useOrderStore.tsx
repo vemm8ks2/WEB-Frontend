@@ -17,7 +17,7 @@ export interface ResponseOrderItem {
   product: Product;
 }
 
-interface ResponseOrder {
+export interface ResponseOrder {
   deliveredAt: Date;
   id: number;
   orderItems: ResponseOrderItem[];

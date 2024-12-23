@@ -1,6 +1,8 @@
 import { create } from "zustand";
 
 import type { StoreApi, UseBoundStore } from "zustand";
+import type { ResponseOrder } from "@/store/useOrderStore";
+import type { ResponseUser } from "@/store/useAuthStore";
 
 interface BaseState<T> {
   data?: { message: string; data?: T };
@@ -15,8 +17,14 @@ interface DashboardState {
   useSignupUsersOfLastMonth: UseBoundStore<StoreApi<BaseState<number>>>;
   useOrdersNumberOfThisMonth: UseBoundStore<StoreApi<BaseState<number>>>;
   useOrdersNumberOfLastMonth: UseBoundStore<StoreApi<BaseState<number>>>;
-  useOrderAmountByMonth: UseBoundStore<StoreApi<BaseState<unknown>>>;
-  useTop5RecentOrders: UseBoundStore<StoreApi<BaseState<unknown>>>;
+  useOrderAmountForLastYear: UseBoundStore<
+    StoreApi<BaseState<[number, number, number][]>>
+  >;
+  useTop5RecentOrders: UseBoundStore<
+    StoreApi<BaseState<(ResponseOrder & { user: ResponseUser })[]>>
+  >;
+  useSellingQuantityForThisMonth: UseBoundStore<StoreApi<BaseState<number>>>;
+  useSellingQuantityForLastMonth: UseBoundStore<StoreApi<BaseState<number>>>;
 }
 
 function createBaseStore<T>(url: string) {
@@ -66,12 +74,20 @@ const useOrdersNumberOfLastMonth = createBaseStore<number>(
   "http://localhost:5454/api/admin/dashboard/orders-number-of-last-month"
 );
 
-const useOrderAmountByMonth = createBaseStore(
-  "http://localhost:5454/api/admin/dashboard/order-amount-by-month"
+const useOrderAmountForLastYear = createBaseStore<[number, number, number][]>(
+  "http://localhost:5454/api/admin/dashboard/order-amount-for-last-year"
 );
 
-const useTop5RecentOrders = createBaseStore(
-  "http://localhost:5454/api/admin/dashboard/top5-recent-orders"
+const useTop5RecentOrders = createBaseStore<
+  (ResponseOrder & { user: ResponseUser })[]
+>("http://localhost:5454/api/admin/dashboard/top5-recent-orders");
+
+const useSellingQuantityForThisMonth = createBaseStore<number>(
+  "http://localhost:5454/api/admin/dashboard/selling-quantity-for-this-month"
+);
+
+const useSellingQuantityForLastMonth = createBaseStore<number>(
+  "http://localhost:5454/api/admin/dashboard/selling-quantity-for-last-month"
 );
 
 export const useDashboardStore = create<DashboardState>(() => ({
@@ -81,6 +97,8 @@ export const useDashboardStore = create<DashboardState>(() => ({
   useSignupUsersOfLastMonth: useSignupUsersOfLastMonth,
   useOrdersNumberOfThisMonth: useOrdersNumberOfThisMonth,
   useOrdersNumberOfLastMonth: useOrdersNumberOfLastMonth,
-  useOrderAmountByMonth: useOrderAmountByMonth,
+  useOrderAmountForLastYear: useOrderAmountForLastYear,
   useTop5RecentOrders: useTop5RecentOrders,
+  useSellingQuantityForThisMonth: useSellingQuantityForThisMonth,
+  useSellingQuantityForLastMonth: useSellingQuantityForLastMonth,
 }));

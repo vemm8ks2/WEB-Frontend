@@ -65,7 +65,7 @@ const OrdersNumberOfThisMonth = () => {
 
   return (
     <OverviewCard
-      title="이번 달 상품 판매 개수"
+      title="이번 달 주문 개수"
       Icon={<CreditCard className="h-4 w-4 text-muted-foreground" />}
       mainText={text.mainText}
       subText={text.subText}
