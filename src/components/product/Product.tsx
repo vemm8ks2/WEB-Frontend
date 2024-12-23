@@ -10,8 +10,6 @@ import Option from "@/components/product/Option";
 import type { Product } from "@/store/useProductStore";
 
 const Product = ({ product }: { product: Product }) => {
-  console.log(product);
-
   return (
     <Card className="shadow-lg border-0 flex flex-col">
       <CardHeader>
