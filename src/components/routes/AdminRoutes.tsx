@@ -8,6 +8,7 @@ import TeamSwitcher from "@/components/dashboard/team-switcher";
 import { MainNav } from "@/components/dashboard/main-nav";
 import { UserNav } from "@/components/dashboard/user-nav";
 import Customer from "@/pages/admin/Customer";
+import Product from "@/pages/admin/Product";
 
 const AdminRoutes = () => {
   return (
@@ -26,6 +27,7 @@ const AdminRoutes = () => {
         <div className="flex-1 space-y-4 p-8 pt-6">
           <Routes>
             <Route path="/" element={<Dashboard />} />
+            <Route path="/product" element={<Product />} />
             <Route path="/product/create" element={<CreateProduct />} />
             <Route path="/customer" element={<Customer />} />
             <Route path="/charts" element={<Charts />} />

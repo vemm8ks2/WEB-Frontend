@@ -1,22 +1,18 @@
 import { create } from "zustand";
 
 import type { ApiResponse, Page } from "@/types/api";
-import type { User } from "@/types/user";
+import type { Product } from "@/types/product";
 
 interface State {
-  data?: Page<User>;
+  data?: Page<Product>;
   isLoading: boolean;
-  getCustomer: (params: {
-    token: string;
-    page?: number;
-    size?: number;
-  }) => void;
+  getProduct: (params: { token: string; page?: number; size?: number }) => void;
 }
 
-export const useCustomerStore = create<State>((set) => ({
+export const useProductStore = create<State>((set) => ({
   data: undefined,
   isLoading: false,
-  getCustomer: async ({ token, page = 0, size = 10 }) => {
+  getProduct: async ({ token, page = 0, size = 10 }) => {
     set({ isLoading: true });
 
     try {
@@ -24,7 +20,7 @@ export const useCustomerStore = create<State>((set) => ({
       const currSize = size > 0 ? size : 10;
 
       const res = await fetch(
-        `http://localhost:5454/api/admin/user?page=${currPage}&size=${currSize}`,
+        `http://localhost:5454/api/admin/product?page=${currPage}&size=${currSize}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -32,7 +28,7 @@ export const useCustomerStore = create<State>((set) => ({
           },
         }
       );
-      const { data }: ApiResponse<Page<User>> = await res.json();
+      const { data }: ApiResponse<Page<Product>> = await res.json();
 
       set({ data });
     } catch (e) {
