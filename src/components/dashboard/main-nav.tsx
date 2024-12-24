@@ -39,7 +39,7 @@ export function MainNav({
           href="/admin/customer"
           className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
         >
-          고객목록
+          유저목록
         </a>
       </Button>
       <Button variant="link">
