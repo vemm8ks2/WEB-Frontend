@@ -3,6 +3,7 @@ import { Search } from "lucide-react";
 
 import Dashboard from "@/pages/admin/Dashboard";
 import Product from "@/pages/admin/Product";
+import Charts from "@/pages/admin/Charts";
 import TeamSwitcher from "@/components/dashboard/team-switcher";
 import { MainNav } from "@/components/dashboard/main-nav";
 import { UserNav } from "@/components/dashboard/user-nav";
@@ -25,6 +26,7 @@ const AdminRoutes = () => {
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/product" element={<Product />} />
+            <Route path="/charts" element={<Charts />} />
           </Routes>
         </div>
       </div>

@@ -1,9 +1,10 @@
+import { useEffect } from "react";
+import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
+
+import { useDashboardStore } from "@/store/useDashboardStore";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import Loader from "@/components/ui/Loader";
 import { useAuthStore } from "@/store/useAuthStore";
-import { useDashboardStore } from "@/store/useDashboardStore";
-import { useEffect } from "react";
-import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
 
 const SalesOverview = () => {
   const { data: auth } = useAuthStore();

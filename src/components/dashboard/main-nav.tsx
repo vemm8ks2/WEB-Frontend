@@ -42,6 +42,14 @@ export function MainNav({
           고객목록
         </a>
       </Button>
+      <Button variant="link">
+        <a
+          href="/admin/charts"
+          className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+        >
+          시각화
+        </a>
+      </Button>
     </nav>
   );
 }
