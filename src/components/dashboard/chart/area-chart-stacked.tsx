@@ -1,5 +1,6 @@
 import { TrendingUp } from "lucide-react";
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
+import { nanoid } from "nanoid";
 
 import {
   Card,
@@ -15,6 +16,8 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
+import { Button } from "@/components/ui/button";
+import svgToPng from "@/utils/svg-to-png";
 const chartData = [
   { month: "January", desktop: 186, mobile: 80 },
   { month: "February", desktop: 305, mobile: 200 },
@@ -36,6 +39,8 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 export function AreaChartStacked() {
+  const svgId = nanoid(5);
+
   return (
     <Card>
       <CardHeader>
@@ -47,6 +52,7 @@ export function AreaChartStacked() {
       <CardContent>
         <ChartContainer config={chartConfig}>
           <AreaChart
+            id={svgId}
             accessibilityLayer
             data={chartData}
             margin={{
@@ -69,17 +75,17 @@ export function AreaChartStacked() {
             <Area
               dataKey="mobile"
               type="natural"
-              fill="var(--color-mobile)"
+              fill="hsl(12 76% 61%)"
               fillOpacity={0.4}
-              stroke="var(--color-mobile)"
+              stroke="hsl(12 76% 61%)"
               stackId="a"
             />
             <Area
               dataKey="desktop"
               type="natural"
-              fill="var(--color-desktop)"
+              fill="hsl(173 58% 39%)"
               fillOpacity={0.4}
-              stroke="var(--color-desktop)"
+              stroke="hsl(173 58% 39%)"
               stackId="a"
             />
           </AreaChart>
@@ -96,6 +102,9 @@ export function AreaChartStacked() {
             </div>
           </div>
         </div>
+        <Button variant="outline" onClick={() => svgToPng(svgId)}>
+          다운로드
+        </Button>
       </CardFooter>
     </Card>
   );

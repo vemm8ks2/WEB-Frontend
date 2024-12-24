@@ -1,5 +1,6 @@
 import { TrendingUp } from "lucide-react";
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
+import { nanoid } from "nanoid";
 
 import {
   Card,
@@ -15,6 +16,8 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
+import { Button } from "@/components/ui/button";
+import svgToPng from "@/utils/svg-to-png";
 const chartData = [
   { month: "January", desktop: 186 },
   { month: "February", desktop: 305 },
@@ -32,6 +35,8 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 export function AreaChartComponent() {
+  const svgId = nanoid(5);
+
   return (
     <Card>
       <CardHeader>
@@ -43,6 +48,7 @@ export function AreaChartComponent() {
       <CardContent>
         <ChartContainer config={chartConfig}>
           <AreaChart
+            id={svgId}
             accessibilityLayer
             data={chartData}
             margin={{
@@ -65,9 +71,9 @@ export function AreaChartComponent() {
             <Area
               dataKey="desktop"
               type="natural"
-              fill="var(--color-desktop)"
+              fill="hsl(173 58% 39%)"
               fillOpacity={0.4}
-              stroke="var(--color-desktop)"
+              stroke="hsl(173 58% 39%)"
             />
           </AreaChart>
         </ChartContainer>
@@ -83,6 +89,9 @@ export function AreaChartComponent() {
             </div>
           </div>
         </div>
+        <Button variant="outline" onClick={() => svgToPng(svgId)}>
+          다운로드
+        </Button>
       </CardFooter>
     </Card>
   );

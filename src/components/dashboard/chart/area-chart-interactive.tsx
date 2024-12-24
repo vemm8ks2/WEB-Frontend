@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
+import { nanoid } from "nanoid";
 
 import {
   Card,
@@ -25,6 +26,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Button } from "@/components/ui/button";
+import svgToPng from "@/utils/svg-to-png";
 const chartData = [
   { date: "2024-04-01", desktop: 222, mobile: 150 },
   { date: "2024-04-02", desktop: 97, mobile: 180 },
@@ -150,6 +153,8 @@ export function AreaChartInteractive() {
     return date >= startDate;
   });
 
+  const svgId = nanoid(5);
+
   return (
     <Card>
       <CardHeader className="flex items-center gap-2 space-y-0 border-b py-5 sm:flex-row">
@@ -178,35 +183,38 @@ export function AreaChartInteractive() {
             </SelectItem>
           </SelectContent>
         </Select>
+        <Button variant="outline" onClick={() => svgToPng(svgId)}>
+          다운로드
+        </Button>
       </CardHeader>
       <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6">
         <ChartContainer
           config={chartConfig}
           className="aspect-auto h-[250px] w-full"
         >
-          <AreaChart data={filteredData}>
+          <AreaChart id={svgId} data={filteredData}>
             <defs>
               <linearGradient id="fillDesktop" x1="0" y1="0" x2="0" y2="1">
                 <stop
                   offset="5%"
-                  stopColor="var(--color-desktop)"
+                  stopColor="hsl(173 58% 39%)"
                   stopOpacity={0.8}
                 />
                 <stop
                   offset="95%"
-                  stopColor="var(--color-desktop)"
+                  stopColor="hsl(173 58% 39%)"
                   stopOpacity={0.1}
                 />
               </linearGradient>
               <linearGradient id="fillMobile" x1="0" y1="0" x2="0" y2="1">
                 <stop
                   offset="5%"
-                  stopColor="var(--color-mobile)"
+                  stopColor="hsl(12 76% 61%)"
                   stopOpacity={0.8}
                 />
                 <stop
                   offset="95%"
-                  stopColor="var(--color-mobile)"
+                  stopColor="hsl(12 76% 61%)"
                   stopOpacity={0.1}
                 />
               </linearGradient>
@@ -244,14 +252,14 @@ export function AreaChartInteractive() {
               dataKey="mobile"
               type="natural"
               fill="url(#fillMobile)"
-              stroke="var(--color-mobile)"
+              stroke="hsl(12 76% 61%)"
               stackId="a"
             />
             <Area
               dataKey="desktop"
               type="natural"
               fill="url(#fillDesktop)"
-              stroke="var(--color-desktop)"
+              stroke="hsl(173 58% 39%)"
               stackId="a"
             />
             <ChartLegend content={<ChartLegendContent />} />
