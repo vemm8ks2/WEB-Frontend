@@ -21,8 +21,11 @@ import {
   Table,
 } from "@/components/ui/table";
 import Pageable from "@/components/common/Pageable";
+import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 
 const Product = () => {
+  const navigate = useNavigate();
   const { data: auth } = useAuthStore();
   const { data, getProduct, isLoading } = useProductStore();
 
@@ -33,11 +36,19 @@ const Product = () => {
 
   return (
     <Card className="max-w-screen-lg mx-auto border-0 shadow-lg">
-      <CardHeader>
-        <CardTitle>상품 목록</CardTitle>
-        <CardDescription>
-          상품의 식별자와 상품명, 가격, 카테고리, 옵션 데이터를 보여줍니다.
-        </CardDescription>
+      <CardHeader className="flex flex-row justify-between">
+        <div>
+          <CardTitle>상품 목록</CardTitle>
+          <CardDescription>
+            상품의 식별자와 상품명, 가격, 카테고리, 옵션 데이터를 보여줍니다.
+          </CardDescription>
+        </div>
+        <Button
+          className="px-20"
+          onClick={() => navigate("/admin/product/create")}
+        >
+          상품생성
+        </Button>
       </CardHeader>
       <CardContent>
         <Table>
@@ -89,7 +100,7 @@ const Product = () => {
                 ))
               : isLoading && (
                   <TableRow>
-                    <TableCell colSpan={4}>
+                    <TableCell colSpan={5}>
                       <Loader className="text-zinc-400 mx-auto my-4" />
                     </TableCell>
                   </TableRow>
@@ -97,47 +108,8 @@ const Product = () => {
           </TableBody>
           <TableFooter className="bg-white">
             <TableRow>
-              <TableCell colSpan={4}>
-                {data && (
-                  <Pageable data={data} callback={getProduct} />
-                  // <Pagination>
-                  //   <PaginationContent>
-                  //     <PaginationItem>
-                  //       <Button
-                  //         onClick={() => setCurrentPage((prev) => prev - 1)}
-                  //         variant="link"
-                  //         disabled={currentPage <= 0}
-                  //         className="gap-1 pl-2.5"
-                  //       >
-                  //         <ChevronLeft className="h-4 w-4" />
-                  //         <span>이전</span>
-                  //       </Button>
-                  //     </PaginationItem>
-                  //     {Array.from({ length: data.totalPages }).map((_, i) => (
-                  //       <PaginationItem key={i}>
-                  //         <Button
-                  //           onClick={() => setCurrentPage(i)}
-                  //           variant={i === currentPage ? "default" : "link"}
-                  //           className="rounded-full w-9 h-9"
-                  //         >
-                  //           {i + 1}
-                  //         </Button>
-                  //       </PaginationItem>
-                  //     ))}
-                  //     <PaginationItem>
-                  //       <Button
-                  //         onClick={() => setCurrentPage((prev) => prev + 1)}
-                  //         variant="link"
-                  //         disabled={data.totalPages - 1 <= currentPage}
-                  //         className="gap-1 pr-2.5"
-                  //       >
-                  //         <span>다음</span>
-                  //         <ChevronRight className="h-4 w-4" />
-                  //       </Button>
-                  //     </PaginationItem>
-                  //   </PaginationContent>
-                  // </Pagination>
-                )}
+              <TableCell colSpan={5}>
+                {data && <Pageable data={data} callback={getProduct} />}
               </TableCell>
             </TableRow>
           </TableFooter>
