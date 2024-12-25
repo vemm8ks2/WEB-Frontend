@@ -36,16 +36,13 @@ const TotalSalesOfThisMonth = () => {
     if (text.mainText && text.subText) return;
     if (!totalSalesOfThisMonth || !totalSalesOfLastMonth) return;
 
-    if (totalSalesOfThisMonth.data === null)
-      setText((prev) => ({ ...prev, mainText: "데이터가 없습니다." }));
-    if (totalSalesOfLastMonth.data === null)
-      setText((prev) => ({ ...prev, subText: "데이터가 없습니다." }));
-
     const thisMonth = totalSalesOfThisMonth.data;
     const lastMonth = totalSalesOfLastMonth.data;
 
     let mainText = "";
     let subText = "";
+
+    if (thisMonth) mainText = `₩ ${thisMonth.toLocaleString()}`;
 
     if (thisMonth && lastMonth) {
       const percent = ((thisMonth - lastMonth) / lastMonth) * 100;
@@ -57,8 +54,8 @@ const TotalSalesOfThisMonth = () => {
           : `전달 대비 ${percent.toFixed(2)}% 하락`;
     }
 
-    if (!thisMonth) mainText = "-";
-    if (!lastMonth) subText = "데이터가 없습니다.";
+    if (!thisMonth) mainText = "₩ 0";
+    if (!lastMonth) subText = "이전 달 데이터가 존재하지 않습니다.";
 
     setText({ mainText, subText });
   }, [

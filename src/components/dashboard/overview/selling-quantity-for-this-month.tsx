@@ -39,13 +39,23 @@ const SellingQuantityForThisMonth = () => {
     const thisMonth = sellingQuantityForThisMonth.data as number;
     const lastMonth = sellingQuantityForLastMonth.data as number;
 
-    const percent = ((thisMonth - lastMonth) / lastMonth) * 100 || 0;
+    let mainText = "";
+    let subText = "";
 
-    const mainText = `+${thisMonth}`;
-    const subText =
-      percent >= 0
-        ? `전달 대비 +${percent.toFixed(2)}% 상승`
-        : `전달 대비 ${percent.toFixed(2)}% 하락`;
+    if (thisMonth) mainText = `+${thisMonth.toLocaleString()}`;
+
+    if (thisMonth && lastMonth) {
+      const percent = ((thisMonth - lastMonth) / lastMonth) * 100;
+
+      mainText = `+${thisMonth.toLocaleString()}`;
+      subText =
+        percent >= 0
+          ? `전달 대비 +${percent.toFixed(2)}% 상승`
+          : `전달 대비 ${percent.toFixed(2)}% 하락`;
+    }
+
+    if (!thisMonth) mainText = "+0";
+    if (!lastMonth) subText = "이전 달 데이터가 존재하지 않습니다.";
 
     setText({ mainText, subText });
   }, [

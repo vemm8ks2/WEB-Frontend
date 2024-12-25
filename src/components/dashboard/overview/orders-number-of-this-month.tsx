@@ -36,22 +36,26 @@ const OrdersNumberOfThisMonth = () => {
     if (text.mainText && text.subText) return;
     if (!ordersNumberOfThisMonth || !ordersNumberOfLastMonth) return;
 
-    const isNumber =
-      !isNaN(Number(ordersNumberOfThisMonth.data)) &&
-      !isNaN(Number(ordersNumberOfLastMonth.data));
+    const thisMonth = ordersNumberOfThisMonth.data;
+    const lastMonth = ordersNumberOfLastMonth.data;
 
-    if (!isNumber) return;
+    let mainText = "";
+    let subText = "";
 
-    const thisMonth = ordersNumberOfThisMonth.data as number;
-    const lastMonth = ordersNumberOfLastMonth.data as number;
+    if (thisMonth) mainText = `+${thisMonth.toLocaleString()}`;
 
-    const percent = ((thisMonth - lastMonth) / lastMonth) * 100 || 0;
+    if (thisMonth && lastMonth) {
+      const percent = ((thisMonth - lastMonth) / lastMonth) * 100;
 
-    const mainText = `+${thisMonth}`;
-    const subText =
-      percent >= 0
-        ? `전달 대비 +${percent.toFixed(2)}% 상승`
-        : `전달 대비 ${percent.toFixed(2)}% 하락`;
+      mainText = `+${thisMonth.toLocaleString()}`;
+      subText =
+        percent >= 0
+          ? `전달 대비 +${percent.toFixed(2)}% 상승`
+          : `전달 대비 ${percent.toFixed(2)}% 하락`;
+    }
+
+    if (!thisMonth) mainText = "+0";
+    if (!lastMonth) subText = "이전 달 데이터가 존재하지 않습니다.";
 
     setText({ mainText, subText });
   }, [
