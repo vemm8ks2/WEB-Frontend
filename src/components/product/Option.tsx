@@ -2,7 +2,6 @@ import { useNavigate } from "react-router-dom";
 import { nanoid } from "nanoid";
 import { PopoverClose } from "@radix-ui/react-popover";
 
-import type { ProductOption } from "@/store/useProductStore";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -23,6 +22,7 @@ import { useCartStore } from "@/store/useCartStore";
 import { useAuthStore } from "@/store/useAuthStore";
 
 import type { FormEvent } from "react";
+import type { ProductOption } from "@/types/product";
 
 const Option = ({
   productId,

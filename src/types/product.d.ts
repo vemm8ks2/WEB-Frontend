@@ -6,7 +6,7 @@ interface ProductOption {
   size: string;
 }
 
-export interface Product {
+interface Product {
   active: boolean;
   category: Category;
   id: number;

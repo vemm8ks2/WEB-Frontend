@@ -1,54 +1,29 @@
 import { create } from "zustand";
 
-interface Category {
-  id: string;
-  name: string;
-  level: number;
-  parentCategory: Category;
-}
-
-export interface ProductOption {
-  id: number;
-  stock: number;
-  size: number | string;
-}
-
-export interface Product {
-  id: number;
-  title: string;
-  imageUrl: string;
-  price: number;
-  active: boolean;
-  category: Category;
-  productOptions: ProductOption[];
-}
-
-interface CreateProductDTO
-  extends Pick<Product, "title" | "imageUrl" | "price"> {
-  categoryId: string;
-  productOptions: Omit<ProductOption, "id">[];
-}
+import type { Product } from "@/types/product";
+import type { ApiResponse, Page } from "@/types/api";
 
 interface State {
-  products: Product[];
+  products?: Page<Product>;
   isLoading: boolean;
-  getProducts: () => void;
-  createProduct: (
-    params: {
-      token: string;
-    } & CreateProductDTO
-  ) => Promise<{ message: string; statusCode: number }>;
+  getProducts: (params: { page?: number; size?: number }) => void;
 }
 
 export const useProductStore = create<State>((set) => ({
-  products: [],
+  products: undefined,
   isLoading: false,
-  getProducts: async () => {
+  getProducts: async ({ page = 0, size = 10 }) => {
     set({ isLoading: true });
 
     try {
-      const res = await fetch("http://localhost:5454/api/public/product");
-      const data = await res.json();
+      const currPage = page >= 0 ? page : 0;
+      const currSize = size > 0 ? size : 10;
+
+      const res = await fetch(
+        `http://localhost:5454/api/public/product?page=${currPage}&size=${currSize}`,
+        { headers: { "Content-Type": "application/json" } }
+      );
+      const { data }: ApiResponse<Page<Product>> = await res.json();
 
       set({ products: data });
     } catch (e) {
@@ -56,40 +31,5 @@ export const useProductStore = create<State>((set) => ({
     }
 
     set({ isLoading: false });
-  },
-  createProduct: async (params) => {
-    const { token, title, price, imageUrl, categoryId, productOptions } =
-      params;
-
-    const result = { message: "", statusCode: -1 };
-
-    set({ isLoading: true });
-
-    try {
-      const res = await fetch("http://localhost:5454/api/admin/product", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          title,
-          price,
-          imageUrl,
-          categoryId,
-          productOptions,
-        }),
-      });
-      const data = await res.json();
-
-      result.message = data.message;
-      result.statusCode = res.status;
-    } catch (e) {
-      console.log(e);
-    }
-
-    set({ isLoading: false });
-
-    return result;
   },
 }));

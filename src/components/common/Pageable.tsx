@@ -12,9 +12,17 @@ import { Button } from "@/components/ui/button";
 
 import type { Page } from "@/types/api";
 
+interface PublicCallback {
+  (params: { page?: number; size?: number }): unknown;
+}
+
+interface AuthCallback {
+  (params: { token: string; page?: number; size?: number }): unknown;
+}
+
 interface Params<T> {
   data: Page<T>;
-  callback: (params: { token: string; page?: number; size?: number }) => void;
+  callback: PublicCallback | AuthCallback;
 }
 
 export default function Pageable<T>({ data, callback }: Params<T>) {
@@ -23,7 +31,11 @@ export default function Pageable<T>({ data, callback }: Params<T>) {
   const [currentPage, setCurrentPage] = useState(0);
 
   useEffect(() => {
-    if (!auth) return;
+    if (!auth) {
+      (callback as PublicCallback)({ page: currentPage });
+      return;
+    }
+
     callback({ token: auth.token, page: currentPage });
   }, [auth, callback, currentPage]);
 

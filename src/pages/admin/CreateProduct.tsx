@@ -3,8 +3,8 @@ import { nanoid } from "nanoid";
 
 import supabase, { getProductImageUrl } from "@/lib/supabaseClient";
 import { useCategoryStore } from "@/store/useCategoryStore";
-import { ProductOption, useProductStore } from "@/store/useProductStore";
 import { useAuthStore } from "@/store/useAuthStore";
+import { useProductStore } from "@/store/admin/useProductStore";
 import SelectCategories from "@/components/category/SelectCategories";
 import { Button } from "@/components/ui/button";
 import {
@@ -24,6 +24,7 @@ import {
 } from "@/components/ui/select";
 
 import type { FormEvent } from "react";
+import type { ProductOption } from "@/types/product";
 
 const Product = () => {
   const [option, setOption] = useState(["", "", ""]);

@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { Info } from "lucide-react";
 
 import { useProductStore } from "@/store/useProductStore";
 import Product from "@/components/product/Product";
@@ -13,26 +14,16 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-  PaginationPrevious,
-  PaginationLink,
-  PaginationEllipsis,
-  PaginationNext,
-} from "@/components/ui/pagination";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Info } from "lucide-react";
+import Loader from "@/components/ui/Loader";
+import Pageable from "@/components/common/Pageable";
 
 const Home = () => {
-  const { products, getProducts } = useProductStore();
+  const { products, getProducts, isLoading } = useProductStore();
 
   useEffect(() => {
-    getProducts();
+    getProducts({});
   }, [getProducts]);
-
-  const hasProducts = products.length > 0;
 
   return (
     <>
@@ -57,9 +48,11 @@ const Home = () => {
           </CardFooter>
         </Card>
         <div className="flex flex-col flex-1 justify-between">
-          {hasProducts ? (
+          {isLoading ? (
+            <Loader className="text-zinc-400 m-auto" />
+          ) : products && products.content.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {products.map((product) => (
+              {products.content.map((product) => (
                 <Product key={product.id} product={product} />
               ))}
             </div>
@@ -72,30 +65,9 @@ const Home = () => {
               </AlertDescription>
             </Alert>
           )}
-          <Pagination className="my-8">
-            <PaginationContent>
-              <PaginationItem>
-                <PaginationPrevious href="#" />
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink href="#">1</PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink href="#" isActive>
-                  2
-                </PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink href="#">3</PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationEllipsis />
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationNext href="#" />
-              </PaginationItem>
-            </PaginationContent>
-          </Pagination>
+          <div className="my-8">
+            {products && <Pageable data={products} callback={getProducts} />}
+          </div>
         </div>
       </main>
     </>

@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/card";
 import Option from "@/components/product/Option";
 
-import type { Product } from "@/store/useProductStore";
+import type { Product } from "@/types/product";
 
 const Product = ({ product }: { product: Product }) => {
   return (
