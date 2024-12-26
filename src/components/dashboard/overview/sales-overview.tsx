@@ -32,7 +32,7 @@ const SalesOverview = () => {
     const len = orderAmountForLastYear.data.length;
     const startIndex = 12 - len;
 
-    data.splice(startIndex, len, ...orderAmount);
+    data.splice(startIndex, len, ...orderAmount.reverse());
   }
 
   return (

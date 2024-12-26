@@ -9,6 +9,7 @@ import { MainNav } from "@/components/dashboard/main-nav";
 import { UserNav } from "@/components/dashboard/user-nav";
 import Customer from "@/pages/admin/Customer";
 import Product from "@/pages/admin/Product";
+import Order from "@/pages/admin/Order";
 
 const AdminRoutes = () => {
   return (
@@ -29,6 +30,7 @@ const AdminRoutes = () => {
             <Route path="/" element={<Dashboard />} />
             <Route path="/product" element={<Product />} />
             <Route path="/product/create" element={<CreateProduct />} />
+            <Route path="/order" element={<Order />} />
             <Route path="/customer" element={<Customer />} />
             <Route path="/charts" element={<Charts />} />
           </Routes>
