@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { Info } from "lucide-react";
 
 import { useProductStore } from "@/store/useProductStore";
@@ -19,11 +20,18 @@ import Loader from "@/components/ui/Loader";
 import Pageable from "@/components/common/Pageable";
 
 const Home = () => {
+  const location = useLocation();
+
   const { products, getProducts, isLoading } = useProductStore();
 
   useEffect(() => {
-    getProducts({});
-  }, [getProducts]);
+    const params = new URLSearchParams(location.search);
+
+    const keyword = params.get("keyword") || undefined;
+    const categoryId = params.get("category_id") || undefined;
+
+    getProducts({ keyword, categoryId });
+  }, [getProducts, location.search]);
 
   return (
     <>

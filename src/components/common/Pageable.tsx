@@ -13,31 +13,40 @@ import { Button } from "@/components/ui/button";
 import type { Page } from "@/types/api";
 
 interface PublicCallback {
-  (params: { page?: number; size?: number }): unknown;
+  (params: {
+    categoryId?: string;
+    keyword?: string;
+    page?: number;
+    size?: number;
+  }): unknown;
 }
 
 interface AuthCallback {
   (params: { token: string; page?: number; size?: number }): unknown;
 }
 
-interface Params<T> {
+interface Props<T> {
   data: Page<T>;
   callback: PublicCallback | AuthCallback;
+  categoryId?: string;
+  keyword?: string;
 }
 
-export default function Pageable<T>({ data, callback }: Params<T>) {
+export default function Pageable<T>(props: Props<T>) {
+  const { data, callback, categoryId, keyword } = props;
+
   const { data: auth } = useAuthStore();
 
   const [currentPage, setCurrentPage] = useState(0);
 
   useEffect(() => {
     if (!auth) {
-      (callback as PublicCallback)({ page: currentPage });
+      (callback as PublicCallback)({ categoryId, keyword, page: currentPage });
       return;
     }
 
     callback({ token: auth.token, page: currentPage });
-  }, [auth, callback, currentPage]);
+  }, [auth, callback, categoryId, currentPage, keyword]);
 
   const startPage = Math.max(currentPage - 1, 1);
   const endPage = Math.min(currentPage + 3, data.totalPages);

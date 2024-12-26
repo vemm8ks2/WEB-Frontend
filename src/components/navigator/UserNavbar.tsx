@@ -15,10 +15,29 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
+import type { FormEvent } from "react";
+
 const UserNavbar = () => {
   const navigate = useNavigate();
 
   const { data, signout } = useAuthStore();
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.currentTarget);
+    const keyword = formData.get("keyword");
+
+    const params = new URLSearchParams(window.location.search);
+    const categoryId = params.get("category_id") || undefined;
+
+    let route = `/?`;
+
+    if (keyword) route += `keyword=${keyword}`;
+    if (categoryId) route += `&category_id=${categoryId}`;
+
+    navigate(route);
+  };
 
   return (
     <div className="flex justify-between gap-6 items-center min-h-16 px-8 shadow-lg sticky top-0 bg-white z-20">
@@ -27,8 +46,8 @@ const UserNavbar = () => {
           LOGO
         </Button>
       </h1>
-      <form className="relative max-w-xl w-full flex">
-        <Input />
+      <form onSubmit={handleSubmit} className="relative max-w-xl w-full flex">
+        <Input name="keyword" />
         <button className="flex items-center justify-center absolute top-0 right-1 bottom-0 w-12">
           <Separator
             orientation="vertical"

@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import { cn } from "@/lib/utils";
 import {
@@ -7,6 +8,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Button } from "@/components/ui/button";
 import Loader from "@/components/ui/Loader";
 import {
   PreprocessedCategory,
@@ -41,20 +43,36 @@ const AccordionCategory = ({
 }: {
   category: PreprocessedCategory;
 }) => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    const params = new URLSearchParams(location.search);
+    const keyword = params.get("keyword") || undefined;
+
+    let route = `/?category_id=${category.id}`;
+    if (keyword) route += `&keyword=${keyword}`;
+
+    navigate(route);
+  };
+
   if (category.childCategories.length === 0) {
     return (
       <AccordionContent className={cn(`ml-${category.level * 2}`)}>
-        <a href="#" className="hover:underline">
+        <Button onClick={handleClick} variant="link" className="p-0">
           {category.name}
-        </a>
+        </Button>
       </AccordionContent>
     );
   }
 
   return (
     <AccordionItem value={category.id} className="border-0">
-      <AccordionTrigger className={cn(`ml-${category.level * 2}`)}>
-        <a href="#">{category.name}</a>
+      <AccordionTrigger
+        onClick={handleClick}
+        className={cn(`ml-${category.level * 2}`)}
+      >
+        {category.name}
       </AccordionTrigger>
       <AccordionContent className="last:pb-0">
         {category.childCategories.map((category) => (
