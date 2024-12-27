@@ -28,7 +28,9 @@ export const useCategoryStore = create<State>((set) => ({
     set({ isLoading: true });
 
     try {
-      const res = await fetch("http://localhost:5454/api/public/category");
+      const endpoint = `${import.meta.env.VITE_API_URL}/public/category`;
+
+      const res = await fetch(endpoint);
       const categories: ResponseCategory[] = await res.json();
 
       set({ categories: categorized(categories) });

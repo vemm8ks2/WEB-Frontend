@@ -1,7 +1,8 @@
 import { create } from "zustand";
 
-import { Product } from "@/store/useProductStore";
 import { ResponseUser } from "@/store/useAuthStore";
+
+import type { Product } from "@/types/product";
 
 interface ResponseCart {
   id: number;
@@ -48,7 +49,9 @@ export const useCartStore = create<State>((set) => ({
     set({ isLoading: true });
 
     try {
-      const res = await fetch("http://localhost:5454/api/user/cart", {
+      const endpoint = `${import.meta.env.VITE_API_URL}/user/cart`;
+
+      const res = await fetch(endpoint, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data: ResponseCart = await res.json();
@@ -64,7 +67,9 @@ export const useCartStore = create<State>((set) => ({
     set({ isLoading: true });
 
     try {
-      const res = await fetch("http://localhost:5454/api/user/cart-item", {
+      const endpoint = `${import.meta.env.VITE_API_URL}/user/cart-item`;
+
+      const res = await fetch(endpoint, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -98,16 +103,17 @@ export const useCartStore = create<State>((set) => ({
     set({ isLoading: true });
 
     try {
-      const res = await fetch(
-        `http://localhost:5454/api/user/cart-item/delete/${cartItemId}`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const endpoint = `${
+        import.meta.env.VITE_API_URL
+      }/user/cart-item/delete/${cartItemId}`;
+
+      const res = await fetch(endpoint, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
       const data = await res.json();
 
       set({ data });
@@ -121,16 +127,17 @@ export const useCartStore = create<State>((set) => ({
     set({ isLoading: true });
 
     try {
-      const res = await fetch(
-        `http://localhost:5454/api/user/cart-item/delete/all`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const endpoint = `${
+        import.meta.env.VITE_API_URL
+      }/user/cart-item/delete/all`;
+
+      const res = await fetch(endpoint, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
       const data = await res.json();
 
       set({ data });
@@ -144,17 +151,18 @@ export const useCartStore = create<State>((set) => ({
     set({ isLoading: true });
 
     try {
-      const res = await fetch(
-        `http://localhost:5454/api/user/cart-item/modify/${cartItemId}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(quantity),
-        }
-      );
+      const endpoint = `${
+        import.meta.env.VITE_API_URL
+      }/user/cart-item/modify/${cartItemId}`;
+
+      const res = await fetch(endpoint, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(quantity),
+      });
       const data = await res.json();
 
       set({ data });

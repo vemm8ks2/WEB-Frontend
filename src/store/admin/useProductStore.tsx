@@ -30,15 +30,16 @@ export const useProductStore = create<State>((set) => ({
       const currPage = page >= 0 ? page : 0;
       const currSize = size > 0 ? size : 10;
 
-      const res = await fetch(
-        `http://localhost:5454/api/admin/product?page=${currPage}&size=${currSize}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const endpoint = `${
+        import.meta.env.VITE_API_URL
+      }/admin/product?page=${currPage}&size=${currSize}`;
+
+      const res = await fetch(endpoint, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
       const { data }: ApiResponse<Page<Product>> = await res.json();
 
       set({ data });
@@ -57,7 +58,9 @@ export const useProductStore = create<State>((set) => ({
     set({ isLoading: true });
 
     try {
-      const res = await fetch("http://localhost:5454/api/admin/product", {
+      const endpoint = `${import.meta.env.VITE_API_URL}/admin/product`;
+
+      const res = await fetch(endpoint, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

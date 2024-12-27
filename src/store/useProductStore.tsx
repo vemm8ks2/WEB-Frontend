@@ -24,7 +24,9 @@ export const useProductStore = create<State>((set) => ({
       const currPage = page >= 0 ? page : 0;
       const currSize = size > 0 ? size : 10;
 
-      let endpoint = `http://localhost:5454/api/public/product?page=${currPage}&size=${currSize}`;
+      let endpoint = `${
+        import.meta.env.VITE_API_URL
+      }/public/product?page=${currPage}&size=${currSize}`;
 
       if (categoryId) endpoint += `&category_id=${categoryId}`;
       if (keyword) endpoint += `&keyword=${keyword}`;

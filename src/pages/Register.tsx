@@ -44,7 +44,7 @@ const Register = () => {
                 />
               </div>
               <div className="flex flex-col space-y-2">
-                <Label htmlFor="passowrd">비밀번호</Label>
+                <Label htmlFor="password">비밀번호</Label>
                 <Input
                   type="password"
                   id="password"
@@ -60,6 +60,7 @@ const Register = () => {
                     id="birthDate"
                     name="birthDate"
                     placeholder="생일을 입력해주세요."
+                    className="block"
                   />
                 </div>
                 <div className="flex flex-col space-y-2 flex-1">

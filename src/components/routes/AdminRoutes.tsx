@@ -1,6 +1,9 @@
-import { Route, Routes } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { Search } from "lucide-react";
 
+import { useAdminValidateStore } from "@/store/useAdminValidateStore";
+import { useAuthStore } from "@/store/useAuthStore";
 import Dashboard from "@/pages/admin/Dashboard";
 import CreateProduct from "@/pages/admin/CreateProduct";
 import Charts from "@/pages/admin/Charts";
@@ -12,6 +15,29 @@ import Product from "@/pages/admin/Product";
 import Order from "@/pages/admin/Order";
 
 const AdminRoutes = () => {
+  const { data: auth, setToken } = useAuthStore();
+  const { isLoading, checkAdmin } = useAdminValidateStore();
+
+  const [isAdmin, setIsAdmin] = useState("INIT");
+
+  useEffect(() => {
+    setToken();
+  }, [setToken]);
+
+  useEffect(() => {
+    (async () => {
+      if (!auth) return;
+
+      const result = await checkAdmin({ token: auth.token });
+
+      if (result) setIsAdmin("ACCEPT");
+      else setIsAdmin("DENY");
+    })();
+  }, [auth, checkAdmin]);
+
+  if (isLoading || isAdmin === "INIT") return <></>;
+  if (!auth || isAdmin === "DENY") return <Navigate to="/" />;
+
   return (
     <div className="w-[1540px] mx-auto">
       <div className="border-b">

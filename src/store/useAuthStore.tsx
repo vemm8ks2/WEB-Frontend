@@ -27,13 +27,15 @@ export const useAuthStore = create<State>((set) => ({
     const token = localStorage.getItem("accessToken");
     const refreshToken = localStorage.getItem("refreshToken");
 
-    if (token && refreshToken) set({ data: { token: token, refreshToken } });
+    if (token && refreshToken) set({ data: { token, refreshToken } });
   },
   signin: async ({ username, password }) => {
     set({ isLoading: true });
 
     try {
-      const res = await fetch("http://localhost:5454/api/auth/signin", {
+      const endpoint = `${import.meta.env.VITE_API_URL}/auth/signin`;
+
+      const res = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),

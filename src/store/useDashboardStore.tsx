@@ -35,7 +35,9 @@ function createBaseStore<T>(url: string) {
       set({ isLoading: true });
 
       try {
-        const res = await fetch(url, {
+        const endpoint = import.meta.env.VITE_API_URL + url;
+
+        const res = await fetch(endpoint, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();
@@ -51,43 +53,43 @@ function createBaseStore<T>(url: string) {
 }
 
 const useTotalSalesOfThisMonth = createBaseStore<number | null>(
-  "http://localhost:5454/api/admin/dashboard/total-sales-of-this-month"
+  "/admin/dashboard/total-sales-of-this-month"
 );
 
 const useTotalSalesOfLastMonth = createBaseStore<number | null>(
-  "http://localhost:5454/api/admin/dashboard/total-sales-of-last-month"
+  "/admin/dashboard/total-sales-of-last-month"
 );
 
 const useSignupUsersOfThisMonth = createBaseStore<number>(
-  "http://localhost:5454/api/admin/dashboard/signup-users-of-this-month"
+  "/admin/dashboard/signup-users-of-this-month"
 );
 
 const useSignupUsersOfLastMonth = createBaseStore<number>(
-  "http://localhost:5454/api/admin/dashboard/signup-users-of-last-month"
+  "/admin/dashboard/signup-users-of-last-month"
 );
 
 const useOrdersNumberOfThisMonth = createBaseStore<number>(
-  "http://localhost:5454/api/admin/dashboard/orders-number-of-this-month"
+  "/admin/dashboard/orders-number-of-this-month"
 );
 
 const useOrdersNumberOfLastMonth = createBaseStore<number>(
-  "http://localhost:5454/api/admin/dashboard/orders-number-of-last-month"
+  "/admin/dashboard/orders-number-of-last-month"
 );
 
 const useOrderAmountForLastYear = createBaseStore<[number, number, number][]>(
-  "http://localhost:5454/api/admin/dashboard/order-amount-for-last-year"
+  "/admin/dashboard/order-amount-for-last-year"
 );
 
 const useTop5RecentOrders = createBaseStore<
   (ResponseOrder & { user: ResponseUser })[]
->("http://localhost:5454/api/admin/dashboard/top5-recent-orders");
+>("/admin/dashboard/top5-recent-orders");
 
 const useSellingQuantityForThisMonth = createBaseStore<number>(
-  "http://localhost:5454/api/admin/dashboard/selling-quantity-for-this-month"
+  "/admin/dashboard/selling-quantity-for-this-month"
 );
 
 const useSellingQuantityForLastMonth = createBaseStore<number>(
-  "http://localhost:5454/api/admin/dashboard/selling-quantity-for-last-month"
+  "/admin/dashboard/selling-quantity-for-last-month"
 );
 
 export const useDashboardStore = create<DashboardState>(() => ({

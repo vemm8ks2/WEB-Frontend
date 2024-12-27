@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-import { Product } from "@/store/useProductStore";
+import type { Product } from "@/types/product";
 
 export enum PaymentMethod {
   digitalWallet = "DIGITAL_WALLET",
@@ -54,7 +54,9 @@ export const useOrderStore = create<State>((set) => ({
     set({ isLoading: true });
 
     try {
-      const res = await fetch("http://localhost:5454/api/user/order/history", {
+      const endpoint = `${import.meta.env.VITE_API_URL}/user/order/history`;
+
+      const res = await fetch(endpoint, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -82,7 +84,9 @@ export const useOrderStore = create<State>((set) => ({
     set({ isLoading: true });
 
     try {
-      const res = await fetch("http://localhost:5454/api/user/order", {
+      const endpoint = `${import.meta.env.VITE_API_URL}/user/order`;
+
+      const res = await fetch(endpoint, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
