@@ -1,5 +1,6 @@
-import type { FormEvent } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { AlertCircle } from "lucide-react";
 
 import { useAuthStore } from "@/store/useAuthStore";
 import Loader from "@/components/ui/Loader";
@@ -14,12 +15,17 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+
+import type { FormEvent } from "react";
 
 const Login = () => {
   const navigate = useNavigate();
   const { isLoading, signin } = useAuthStore();
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const [hasError, setHasError] = useState(false);
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
@@ -31,8 +37,10 @@ const Login = () => {
       return;
     }
 
-    signin({ username, password });
-    navigate("/");
+    const res = await signin({ username, password });
+
+    if (res) navigate("/");
+    else setHasError(true);
   };
 
   return (
@@ -64,6 +72,15 @@ const Login = () => {
                   placeholder="비밀번호를 입력해주세요."
                 />
               </div>
+              {hasError && (
+                <Alert variant="destructive">
+                  <AlertCircle className="h-4 w-4" />
+                  <AlertTitle>로그인 실패</AlertTitle>
+                  <AlertDescription>
+                    아이디 혹은 비밀번호가 일치하지 않습니다.
+                  </AlertDescription>
+                </Alert>
+              )}
               <Button
                 type="submit"
                 disabled={isLoading}

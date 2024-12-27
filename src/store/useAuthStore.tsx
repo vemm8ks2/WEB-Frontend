@@ -16,7 +16,7 @@ interface State {
   data?: UserStore;
   isLoading: boolean;
   setToken: () => void;
-  signin: (params: { username: string; password: string }) => void;
+  signin: (params: { username: string; password: string }) => Promise<boolean>;
   signout: () => void;
 }
 
@@ -32,6 +32,8 @@ export const useAuthStore = create<State>((set) => ({
   signin: async ({ username, password }) => {
     set({ isLoading: true });
 
+    let result = false;
+
     try {
       const endpoint = `${import.meta.env.VITE_API_URL}/auth/signin`;
 
@@ -46,11 +48,15 @@ export const useAuthStore = create<State>((set) => ({
 
       localStorage.setItem("accessToken", data.token);
       localStorage.setItem("refreshToken", data.refreshToken);
+
+      result = true;
     } catch (e) {
       console.log(e);
     }
 
     set({ isLoading: false });
+
+    return result;
   },
   signout: () => {
     localStorage.removeItem("accessToken");
