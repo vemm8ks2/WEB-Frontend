@@ -1,18 +1,19 @@
-import { useEffect, useState } from "react";
+import { lazy, useEffect, useState } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { Search } from "lucide-react";
 
 import { useAdminValidateStore } from "@/store/useAdminValidateStore";
 import { useAuthStore } from "@/store/useAuthStore";
 import Dashboard from "@/pages/admin/Dashboard";
-import CreateProduct from "@/pages/admin/CreateProduct";
-import Charts from "@/pages/admin/Charts";
 import TeamSwitcher from "@/components/dashboard/team-switcher";
 import { MainNav } from "@/components/dashboard/main-nav";
 import { UserNav } from "@/components/dashboard/user-nav";
-import Customer from "@/pages/admin/Customer";
-import Product from "@/pages/admin/Product";
-import Order from "@/pages/admin/Order";
+
+const Product = lazy(() => import("@/pages/admin/CreateProduct"));
+const CreateProduct = lazy(() => import("@/pages/admin/CreateProduct"));
+const Order = lazy(() => import("@/pages/admin/Order"));
+const Customer = lazy(() => import("@/pages/admin/Customer"));
+const Charts = lazy(() => import("@/pages/admin/Charts"));
 
 const AdminRoutes = () => {
   const { data: auth, setToken } = useAuthStore();
