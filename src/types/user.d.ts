@@ -1,12 +1,12 @@
 enum Role {
-  'ADMIN'= 'ROLE_ADMIN',
-  'USER'= 'ROLE_USER'
+  "ADMIN" = "ROLE_ADMIN",
+  "USER" = "ROLE_USER",
 }
 
 enum Gender {
-  MALE = 'MALE',
-  FEMALE = 'FEMALE',
-  OTHER = 'OTHER'
+  MALE = "MALE",
+  FEMALE = "FEMALE",
+  OTHER = "OTHER",
 }
 
 interface Authority {
