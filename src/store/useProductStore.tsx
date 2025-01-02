@@ -17,7 +17,7 @@ interface State {
 export const useProductStore = create<State>((set) => ({
   products: undefined,
   isLoading: false,
-  getProducts: async ({ categoryId, keyword, page = 0, size = 10 }) => {
+  getProducts: async ({ categoryId, keyword, page = 0, size = 12 }) => {
     set({ isLoading: true });
 
     try {

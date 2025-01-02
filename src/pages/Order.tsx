@@ -30,7 +30,7 @@ import type { FormEvent } from "react";
 
 const Order = () => {
   const { data: auth } = useAuthStore();
-  const { data, isLoading, removeAllCartItem } = useCartStore();
+  const { data, isLoading, resetCartItems } = useCartStore();
   const { saveOrder } = useOrderStore();
 
   if (!data || data.cartItems.length === 0)
@@ -78,9 +78,7 @@ const Order = () => {
       totalPrice,
     });
 
-    if (statusCode === 201) {
-      removeAllCartItem({ token });
-    }
+    if (statusCode === 201) resetCartItems();
   };
 
   return (

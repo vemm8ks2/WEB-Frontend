@@ -40,6 +40,7 @@ interface State {
     cartItemId: string;
     quantity: number;
   }) => void;
+  resetCartItems: () => void;
 }
 
 export const useCartStore = create<State>((set) => ({
@@ -171,5 +172,11 @@ export const useCartStore = create<State>((set) => ({
     }
 
     set({ isLoading: false });
+  },
+  resetCartItems: () => {
+    set((prev) => ({
+      ...prev,
+      ...(prev.data && { data: { ...prev.data, cartItems: [] } }),
+    }));
   },
 }));
