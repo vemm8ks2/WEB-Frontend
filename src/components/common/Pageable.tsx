@@ -30,23 +30,32 @@ interface Props<T> {
   callback: PublicCallback | AuthCallback;
   categoryId?: string;
   keyword?: string;
+  mode?: "USER" | "ADMIN";
 }
 
 export default function Pageable<T>(props: Props<T>) {
-  const { data, callback, categoryId, keyword } = props;
+  const { data, callback, categoryId, keyword, mode = "USER" } = props;
 
   const { data: auth } = useAuthStore();
 
   const [currentPage, setCurrentPage] = useState(0);
 
   useEffect(() => {
-    if (!auth) {
-      (callback as PublicCallback)({ categoryId, keyword, page: currentPage });
-      return;
+    if (mode === "USER") {
+      console.log({ currentPage, tP: data.totalPages, categoryId, keyword });
+      (callback as PublicCallback)({
+        categoryId,
+        keyword,
+        page: currentPage,
+      });
+    } else if (mode === "ADMIN") {
+      if (auth) callback({ token: auth.token, page: currentPage });
     }
+  }, [auth, callback, categoryId, currentPage, data.totalPages, keyword, mode]);
 
-    callback({ token: auth.token, page: currentPage });
-  }, [auth, callback, categoryId, currentPage, keyword]);
+  useEffect(() => {
+    if (currentPage + 1 > data.totalPages) setCurrentPage(0);
+  }, [currentPage, data.totalPages]);
 
   const startPage = Math.max(currentPage - 1, 1);
   const endPage = Math.min(currentPage + 3, data.totalPages);

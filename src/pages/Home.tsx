@@ -22,22 +22,18 @@ import Pageable from "@/components/common/Pageable";
 const Home = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const params = new URLSearchParams(location.search);
 
   const { products, getProducts, isLoading } = useProductStore();
 
+  const keyword = params.get("keyword") || undefined;
+  const categoryId = params.get("category_id") || undefined;
+
   useEffect(() => {
-    const params = new URLSearchParams(location.search);
-
-    const keyword = params.get("keyword") || undefined;
-    const categoryId = params.get("category_id") || undefined;
-
     getProducts({ keyword, categoryId });
-  }, [getProducts, location.search]);
+  }, [categoryId, getProducts, keyword]);
 
   const handleReset = () => {
-    const params = new URLSearchParams(location.search);
-    const keyword = params.get("keyword") || undefined;
-
     let route = `/?`;
     if (keyword) route += `keyword=${keyword}`;
 
@@ -84,7 +80,14 @@ const Home = () => {
           </Alert>
         )}
         <div className="my-8">
-          {products && <Pageable data={products} callback={getProducts} />}
+          {products && (
+            <Pageable
+              data={products}
+              keyword={keyword}
+              categoryId={categoryId}
+              callback={getProducts}
+            />
+          )}
         </div>
       </div>
     </main>

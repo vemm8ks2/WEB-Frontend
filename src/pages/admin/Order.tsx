@@ -97,7 +97,7 @@ const Order = () => {
                             주문 내역 보기
                           </Button>
                         </DialogTrigger>
-                        <DialogContent className="min-w-max">
+                        <DialogContent className="min-w-max text-sm">
                           <DialogHeader>
                             <DialogTitle>주문 내역</DialogTitle>
                             <DialogDescription>
@@ -149,7 +149,9 @@ const Order = () => {
           <TableFooter className="bg-white">
             <TableRow>
               <TableCell colSpan={8}>
-                {data && <Pageable data={data} callback={getOrder} />}
+                {data && (
+                  <Pageable data={data} mode="ADMIN" callback={getOrder} />
+                )}
               </TableCell>
             </TableRow>
           </TableFooter>

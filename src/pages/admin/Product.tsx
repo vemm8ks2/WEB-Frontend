@@ -109,7 +109,9 @@ const Product = () => {
           <TableFooter className="bg-white">
             <TableRow>
               <TableCell colSpan={5}>
-                {data && <Pageable data={data} callback={getProduct} />}
+                {data && (
+                  <Pageable data={data} mode="ADMIN" callback={getProduct} />
+                )}
               </TableCell>
             </TableRow>
           </TableFooter>

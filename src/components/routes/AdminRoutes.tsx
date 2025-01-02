@@ -9,7 +9,7 @@ import TeamSwitcher from "@/components/dashboard/team-switcher";
 import { MainNav } from "@/components/dashboard/main-nav";
 import { UserNav } from "@/components/dashboard/user-nav";
 
-const Product = lazy(() => import("@/pages/admin/CreateProduct"));
+const Product = lazy(() => import("@/pages/admin/Product"));
 const CreateProduct = lazy(() => import("@/pages/admin/CreateProduct"));
 const Order = lazy(() => import("@/pages/admin/Order"));
 const Customer = lazy(() => import("@/pages/admin/Customer"));

@@ -81,7 +81,9 @@ const Customer = () => {
           <TableFooter className="bg-white">
             <TableRow>
               <TableCell colSpan={4}>
-                {data && <Pageable data={data} callback={getCustomer} />}
+                {data && (
+                  <Pageable data={data} mode="ADMIN" callback={getCustomer} />
+                )}
               </TableCell>
             </TableRow>
           </TableFooter>

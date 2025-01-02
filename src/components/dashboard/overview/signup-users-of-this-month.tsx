@@ -42,16 +42,17 @@ const SignupUsersOfThisMonth = () => {
     let mainText = "";
     let subText = "";
 
-    if (thisMonth) mainText = `+${thisMonth.toLocaleString()}`;
+    if (thisMonth || thisMonth === 0)
+      mainText = `+${thisMonth.toLocaleString()}`;
 
-    if (thisMonth && lastMonth) {
+    if ((thisMonth || thisMonth === 0) && lastMonth) {
       const percent = ((thisMonth - lastMonth) / lastMonth) * 100;
 
       mainText = `+${thisMonth.toLocaleString()}`;
       subText =
         percent >= 0
-          ? `전달 대비 +${percent.toFixed(2)}% 상승`
-          : `전달 대비 ${percent.toFixed(2)}% 하락`;
+          ? `전달 같은 기간 대비(${lastMonth}명) +${percent.toFixed(2)}% 상승`
+          : `전달 같은 기간 대비(${lastMonth}명) ${percent.toFixed(2)}% 하락`;
     }
 
     if (!thisMonth) mainText = "+0";
@@ -59,7 +60,9 @@ const SignupUsersOfThisMonth = () => {
 
     setText({ mainText, subText });
   }, [
+    signupUsersOfLastMonth,
     signupUsersOfLastMonth?.data,
+    signupUsersOfThisMonth,
     signupUsersOfThisMonth?.data,
     text.mainText,
     text.subText,
