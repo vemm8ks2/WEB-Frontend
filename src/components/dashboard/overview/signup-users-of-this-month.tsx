@@ -56,7 +56,7 @@ const SignupUsersOfThisMonth = () => {
     }
 
     if (!thisMonth) mainText = "+0";
-    if (!lastMonth) subText = "이전 달 데이터가 존재하지 않습니다.";
+    if (!lastMonth) subText = "전달 같은 기간동안 데이터가 존재하지 않습니다.";
 
     setText({ mainText, subText });
   }, [
