@@ -20,10 +20,17 @@ import { RadarChartLegend } from "@/components/dashboard/chart/radar-chart-legen
 import { RadialChartText } from "@/components/dashboard/chart/radial-chart-text";
 import { RadialChartShape } from "@/components/dashboard/chart/radial-chart-shape";
 import { RadarChartStacked } from "@/components/dashboard/chart/radial-chart-stacked";
+import { CustomChart } from "@/components/dashboard/chart/custom-chart";
 
 const Charts = () => {
   return (
     <div className="grid grid-cols-12 gap-4">
+      <div className="col-span-4">
+        <CustomChart arg="test" />
+      </div>
+      <div className="col-span-4"></div>
+      <div className="col-span-4"></div>
+      <Separator className="col-span-12 my-8" />
       <div className="col-span-4">
         <AreaChartComponent />
       </div>

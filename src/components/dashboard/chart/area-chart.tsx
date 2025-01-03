@@ -89,7 +89,7 @@ export function AreaChartComponent() {
             </div>
           </div>
         </div>
-        <Button variant="outline" onClick={() => svgToPng(svgId)}>
+        <Button variant="outline" onClick={() => svgToPng({ id: svgId })}>
           다운로드
         </Button>
       </CardFooter>

@@ -183,7 +183,7 @@ export function AreaChartInteractive() {
             </SelectItem>
           </SelectContent>
         </Select>
-        <Button variant="outline" onClick={() => svgToPng(svgId)}>
+        <Button variant="outline" onClick={() => svgToPng({ id: svgId })}>
           다운로드
         </Button>
       </CardHeader>

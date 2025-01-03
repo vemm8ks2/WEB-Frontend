@@ -1,4 +1,6 @@
-export default (id: string) => {
+export default (params: { id: string; width?: number; height?: number }) => {
+  const { id, width, height } = params;
+
   try {
     const svg = document.querySelector(`#${id}`)!;
 
@@ -10,8 +12,8 @@ export default (id: string) => {
     const img = new Image();
 
     img.onload = () => {
-      canvas.width = img.width;
-      canvas.height = img.height;
+      canvas.width = width || img.width;
+      canvas.height = height || img.height;
 
       ctx.fillStyle = "#ffffff";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -29,4 +31,4 @@ export default (id: string) => {
   } catch (error) {
     console.error("Error during SVG to PNG conversion:", error);
   }
-}
+};
