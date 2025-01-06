@@ -9,6 +9,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import Loader from "@/components/ui/Loader";
 import htmlToPng from "@/utils/html-to-png";
 
 import type { ReactNode } from "react";
@@ -24,6 +25,9 @@ export function ChartWrapper(
   props: {
     children: ReactNode;
     disableDonwload?: boolean;
+    hasData?: boolean;
+    isLoading?: boolean;
+    callback?: () => void;
   } & ChartWrapperText
 ) {
   const {
@@ -33,6 +37,9 @@ export function ChartWrapper(
     footerSubDesc,
     children,
     disableDonwload = false,
+    hasData = false,
+    isLoading = false,
+    callback,
   } = props;
 
   const divRef = useRef<HTMLDivElement>(null);
@@ -58,7 +65,24 @@ export function ChartWrapper(
               {headDesc || "차트의 기간 범위를 기입해주세요."}
             </CardDescription>
           </CardHeader>
-          <CardContent>{children}</CardContent>
+          <CardContent>
+            {!hasData && (
+              <div className="flex">
+                <Button
+                  onClick={callback}
+                  disabled={isLoading}
+                  className="w-52 mx-auto my-8"
+                >
+                  {isLoading ? (
+                    <Loader className="text-zinc-400" />
+                  ) : (
+                    <>시각화 불러오기</>
+                  )}
+                </Button>
+              </div>
+            )}
+            {children}
+          </CardContent>
           <CardFooter>
             <div className="flex w-full items-start gap-2 text-sm">
               <div className="grid gap-2">

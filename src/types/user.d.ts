@@ -1,12 +1,8 @@
+import { Gender } from "@/store/useAuthStore";
+
 enum Role {
   "ADMIN" = "ROLE_ADMIN",
   "USER" = "ROLE_USER",
-}
-
-enum Gender {
-  MALE = "MALE",
-  FEMALE = "FEMALE",
-  OTHER = "OTHER",
 }
 
 interface Authority {

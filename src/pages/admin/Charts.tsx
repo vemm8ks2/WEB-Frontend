@@ -35,10 +35,10 @@ const Charts = () => {
         <AreaChartComponent />
       </div>
       <div className="col-span-4">
-        <AreaChartStacked />
+        <AreaChartStep />
       </div>
       <div className="col-span-4">
-        <AreaChartStep />
+        <AreaChartStacked />
       </div>
       <div className="col-span-12">
         <AreaChartInteractive />

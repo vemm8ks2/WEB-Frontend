@@ -1,6 +1,9 @@
 import { Activity } from "lucide-react";
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
 
+import { useCustomerStore } from "@/store/admin/useCustomerStore";
+import { useAuthStore } from "@/store/useAuthStore";
+import registerStatistics from "@/utils/chart/register-statistics";
 import {
   ChartConfig,
   ChartContainer,
@@ -12,14 +15,7 @@ import {
   ChartWrapperText,
 } from "@/components/dashboard/chart/chart-wrapper";
 
-const chartData = [
-  { month: "January", desktop: 186 },
-  { month: "February", desktop: 305 },
-  { month: "March", desktop: 237 },
-  { month: "April", desktop: 73 },
-  { month: "May", desktop: 209 },
-  { month: "June", desktop: 214 },
-];
+import type { User } from "@/types/user";
 
 const chartConfig = {
   desktop: {
@@ -30,37 +26,60 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 export function AreaChartStep() {
+  const { data: auth } = useAuthStore();
+  const { allData, isLoading, getAllCustomer } = useCustomerStore();
+
   const chartWrapperText: ChartWrapperText = { head: "영역 차트 - Step" };
 
+  const callback = () => {
+    if (!auth) return;
+    getAllCustomer({ token: auth.token });
+  };
+
   return (
-    <ChartWrapper {...chartWrapperText}>
-      <ChartContainer config={chartConfig}>
-        <AreaChart
-          accessibilityLayer
-          data={chartData}
-          margin={{ left: 12, right: 12 }}
-        >
-          <CartesianGrid vertical={false} />
-          <XAxis
-            dataKey="month"
-            tickLine={false}
-            axisLine={false}
-            tickMargin={8}
-            tickFormatter={(value) => value.slice(0, 3)}
-          />
-          <ChartTooltip
-            cursor={false}
-            content={<ChartTooltipContent hideLabel />}
-          />
-          <Area
-            dataKey="desktop"
-            type="step"
-            fill="var(--color-desktop)"
-            fillOpacity={0.4}
-            stroke="var(--color-desktop)"
-          />
-        </AreaChart>
-      </ChartContainer>
+    <ChartWrapper
+      {...chartWrapperText}
+      disableDonwload={!Array.isArray(allData)}
+      hasData={Array.isArray(allData)}
+      isLoading={isLoading}
+      callback={callback}
+    >
+      {allData && <Chart allData={allData} />}
     </ChartWrapper>
   );
 }
+
+const Chart = ({ allData }: { allData: User[] }) => {
+  const { area } = registerStatistics({ users: allData });
+
+  return (
+    <ChartContainer config={chartConfig}>
+      <AreaChart
+        accessibilityLayer
+        data={area}
+        margin={{ left: 12, right: 12 }}
+      >
+        <CartesianGrid vertical={false} />
+        <XAxis
+          dataKey="dayOfWeek"
+          tickLine={false}
+          axisLine={false}
+          tickMargin={8}
+          tickFormatter={(value) => value.slice(0, 3)}
+        />
+        <ChartTooltip
+          cursor={false}
+          content={<ChartTooltipContent hideLabel />}
+        />
+        <Area
+          dataKey="count"
+          name="회원가입 수"
+          type="step"
+          fill="var(--color-desktop)"
+          fillOpacity={0.4}
+          stroke="var(--color-desktop)"
+        />
+      </AreaChart>
+    </ChartContainer>
+  );
+};
