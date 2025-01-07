@@ -36,7 +36,7 @@ const OrdersNumberOfThisMonth = () => {
     if (text.mainText && text.subText) return;
     if (!ordersNumberOfThisMonth || !ordersNumberOfLastMonth) return;
 
-    const thisMonth = ordersNumberOfThisMonth.data;
+    const thisMonth = ordersNumberOfThisMonth.data || 0;
     const lastMonth = ordersNumberOfLastMonth.data;
 
     let mainText = "";
@@ -45,14 +45,14 @@ const OrdersNumberOfThisMonth = () => {
     if (thisMonth || thisMonth === 0)
       mainText = `+${thisMonth.toLocaleString()}`;
 
-    if (thisMonth && lastMonth) {
+    if ((thisMonth || thisMonth === 0) && lastMonth) {
       const percent = ((thisMonth - lastMonth) / lastMonth) * 100;
 
       mainText = `+${thisMonth.toLocaleString()}`;
       subText =
         percent >= 0
-          ? `전달 대비 +${percent.toFixed(2)}% 상승`
-          : `전달 대비 ${percent.toFixed(2)}% 하락`;
+          ? `전달 같은 기간 대비(${lastMonth}건) +${percent.toFixed(2)}% 상승`
+          : `전달 같은 기간 대비(${lastMonth}건) ${percent.toFixed(2)}% 하락`;
     }
 
     if (!thisMonth) mainText = "+0";
@@ -70,7 +70,7 @@ const OrdersNumberOfThisMonth = () => {
 
   return (
     <OverviewCard
-      title="이번 달 주문 개수"
+      title="이번 달 주문 건수"
       Icon={<CreditCard className="h-4 w-4 text-muted-foreground" />}
       mainText={text.mainText}
       subText={text.subText}

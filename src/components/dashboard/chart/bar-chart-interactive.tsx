@@ -81,8 +81,6 @@ export function BarChartInteractive() {
     [Gender.MALE]: interactive.reduce((acc, curr) => acc + curr.MALE, 0),
   };
 
-  console.log(interactive);
-
   return (
     <>
       <Card>

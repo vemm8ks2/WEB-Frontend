@@ -36,7 +36,7 @@ const TotalSalesOfThisMonth = () => {
     if (text.mainText && text.subText) return;
     if (!totalSalesOfThisMonth || !totalSalesOfLastMonth) return;
 
-    const thisMonth = totalSalesOfThisMonth.data;
+    const thisMonth = totalSalesOfThisMonth.data || 0;
     const lastMonth = totalSalesOfLastMonth.data;
 
     let mainText = "";
@@ -47,12 +47,13 @@ const TotalSalesOfThisMonth = () => {
 
     if ((thisMonth || thisMonth === 0) && lastMonth) {
       const percent = ((thisMonth - lastMonth) / lastMonth) * 100;
+      const before = lastMonth.toLocaleString();
 
       mainText = `₩ ${thisMonth.toLocaleString()}`;
       subText =
         percent >= 0
-          ? `전달 대비 +${percent.toFixed(2)}% 상승`
-          : `전달 대비 ${percent.toFixed(2)}% 하락`;
+          ? `전달 같은 기간 대비(${before}원) +${percent.toFixed(2)}% 상승`
+          : `전달 같은 기간 대비(${before}원) ${percent.toFixed(2)}% 하락`;
     }
 
     if (!thisMonth) mainText = "₩ 0";

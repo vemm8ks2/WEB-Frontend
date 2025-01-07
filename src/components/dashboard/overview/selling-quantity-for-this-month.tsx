@@ -36,7 +36,7 @@ const SellingQuantityForThisMonth = () => {
     if (text.mainText && text.subText) return;
     if (!sellingQuantityForThisMonth || !sellingQuantityForLastMonth) return;
 
-    const thisMonth = sellingQuantityForThisMonth.data as number;
+    const thisMonth = (sellingQuantityForThisMonth.data as number) || 0;
     const lastMonth = sellingQuantityForLastMonth.data as number;
 
     let mainText = "";
@@ -45,14 +45,14 @@ const SellingQuantityForThisMonth = () => {
     if (thisMonth || thisMonth === 0)
       mainText = `+${thisMonth.toLocaleString()}`;
 
-    if (thisMonth && lastMonth) {
+    if ((thisMonth || thisMonth === 0) && lastMonth) {
       const percent = ((thisMonth - lastMonth) / lastMonth) * 100;
 
       mainText = `+${thisMonth.toLocaleString()}`;
       subText =
         percent >= 0
-          ? `전달 대비 +${percent.toFixed(2)}% 상승`
-          : `전달 대비 ${percent.toFixed(2)}% 하락`;
+          ? `전달 같은 기간 대비(${lastMonth}개) +${percent.toFixed(2)}% 상승`
+          : `전달 같은 기간 대비(${lastMonth}개) ${percent.toFixed(2)}% 하락`;
     }
 
     if (!thisMonth) mainText = "+0";
