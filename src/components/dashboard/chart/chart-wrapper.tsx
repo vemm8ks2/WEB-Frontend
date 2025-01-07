@@ -71,7 +71,7 @@ export function ChartWrapper(
                 <Button
                   onClick={callback}
                   disabled={isLoading}
-                  className="w-52 mx-auto my-8"
+                  className="w-52 mx-auto my-20"
                 >
                   {isLoading ? (
                     <Loader className="text-zinc-400" />

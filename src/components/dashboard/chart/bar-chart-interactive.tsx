@@ -124,7 +124,7 @@ export function BarChartInteractive() {
                 <Button
                   onClick={callback}
                   disabled={isLoading}
-                  className="w-96 mx-auto my-20"
+                  className="w-96 mx-auto my-24"
                 >
                   {isLoading ? (
                     <Loader className="text-zinc-400" />

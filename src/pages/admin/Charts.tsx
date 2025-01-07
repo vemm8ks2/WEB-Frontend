@@ -14,12 +14,9 @@ import { PieChartLabel } from "@/components/dashboard/chart/pie-chart-label";
 import { PieChartDonutWithText } from "@/components/dashboard/chart/pie-chart-donut-with-text";
 import { Separator } from "@/components/ui/separator";
 import { PieChartInteractive } from "@/components/dashboard/chart/pie-chart-interactive";
-import { RadarChartComponent } from "@/components/dashboard/chart/radar-chart";
-import { RadarChartLinesOnly } from "@/components/dashboard/chart/radar-chart-lines-only";
-import { RadarChartLegend } from "@/components/dashboard/chart/radar-chart-legend";
 import { RadialChartText } from "@/components/dashboard/chart/radial-chart-text";
 import { RadialChartShape } from "@/components/dashboard/chart/radial-chart-shape";
-import { RadarChartStacked } from "@/components/dashboard/chart/radial-chart-stacked";
+import { RadialChartStacked } from "@/components/dashboard/chart/radial-chart-stacked";
 import { CustomChart } from "@/components/dashboard/chart/custom-chart";
 
 const Charts = () => {
@@ -86,9 +83,9 @@ const Charts = () => {
         <RadialChartShape />
       </div>
       <div className="col-span-4">
-        <RadarChartStacked />
+        <RadialChartStacked />
       </div>
-      <div className="col-span-4">
+      {/* <div className="col-span-4">
         <RadarChartComponent />
       </div>
       <div className="col-span-4">
@@ -96,7 +93,7 @@ const Charts = () => {
       </div>
       <div className="col-span-4">
         <RadarChartLegend />
-      </div>
+      </div> */}
     </div>
   );
 };

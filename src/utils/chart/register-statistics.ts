@@ -14,6 +14,7 @@ export default ({ users }: { users: User[] }) => {
   return {
     ...setAreaChart(users),
     bar: setBarChart(users),
+    radial: setRadialChart(users),
   };
 };
 
@@ -275,6 +276,30 @@ const setBarChart = (users: User[]) => {
   result.label = label;
   result.multiple = multiple;
   result.interactive = interactive;
+
+  return result;
+};
+
+const setRadialChart = (users: User[]) => {
+  const result = {
+    text: [
+      { gender: Gender.FEMALE, count: 0 },
+      { gender: Gender.MALE, count: 0 },
+      { gender: Gender.OTHER, count: 0 },
+    ],
+    stacked: [{ [Gender.FEMALE]: 0, [Gender.MALE]: 0 }],
+  };
+
+  users.forEach((user) => {
+    if (user.gender === Gender.FEMALE) result.text[0].count++;
+    if (user.gender === Gender.MALE) result.text[1].count++;
+    if (user.gender === Gender.OTHER) result.text[2].count++;
+  });
+
+  result.stacked[0][Gender.FEMALE] = result.text[0].count;
+  result.stacked[0][Gender.MALE] = result.text[1].count;
+
+  console.log(result);
 
   return result;
 };
