@@ -1,10 +1,12 @@
 import { Gender } from "@/store/admin/useCustomerStore";
+import { PaymentMethod } from "@/store/useOrderStore";
 
 import type { Order } from "@/types/order";
 
 export default ({ orders }: { orders: Order[] }) => {
   return {
     line: setLineChart(orders),
+    pie: setPieChart(orders),
   };
 };
 
@@ -104,6 +106,35 @@ const setLineChart = (orders: Order[]) => {
   }
 
   result.interactive = interactive;
+
+  return result;
+};
+
+const setPieChart = (orders: Order[]) => {
+  const result = {
+    label: [] as { method: string; count: number }[],
+  };
+
+  const label: { method: string; count: number }[] = [];
+  const groupingByPaymentMethod: {
+    [method in PaymentMethod]: number;
+  } = {
+    [PaymentMethod.creditOrDebitCart]: 0,
+    [PaymentMethod.depositWithoutPassbook]: 0,
+    [PaymentMethod.digitalWallet]: 0,
+  };
+
+  orders.forEach((order) => {
+    groupingByPaymentMethod[order.paymentMethod]++;
+  });
+
+  for (const method in groupingByPaymentMethod) {
+    const count = groupingByPaymentMethod[method as PaymentMethod];
+
+    label.push({ method, count });
+  }
+
+  result.label = label;
 
   return result;
 };

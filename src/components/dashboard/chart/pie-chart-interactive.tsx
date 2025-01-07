@@ -1,6 +1,3 @@
-"use client";
-
-import * as React from "react";
 import { Label, Pie, PieChart, Sector } from "recharts";
 import { PieSectorDataItem } from "recharts/types/polar/Pie";
 
@@ -25,165 +22,213 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-const desktopData = [
-  { month: "january", desktop: 186, fill: "var(--color-january)" },
-  { month: "february", desktop: 305, fill: "var(--color-february)" },
-  { month: "march", desktop: 237, fill: "var(--color-march)" },
-  { month: "april", desktop: 173, fill: "var(--color-april)" },
-  { month: "may", desktop: 209, fill: "var(--color-may)" },
-];
+import { PaymentMethod } from "@/store/useOrderStore";
+import { useOrderStore } from "@/store/admin/useOrderStore";
+import { useAuthStore } from "@/store/useAuthStore";
+import { Button } from "@/components/ui/button";
+import Loader from "@/components/ui/Loader";
+import orderStatistics from "@/utils/chart/order-statistics";
+import htmlToPng from "@/utils/html-to-png";
+import { useRef, useState } from "react";
 
 const chartConfig = {
-  visitors: {
-    label: "Visitors",
+  "payment method": {
+    label: "Payment method",
   },
-  desktop: {
-    label: "Desktop",
-  },
-  mobile: {
-    label: "Mobile",
-  },
-  january: {
-    label: "January",
+  [PaymentMethod.digitalWallet]: {
+    label: "간편 결제",
     color: "hsl(var(--chart-1))",
   },
-  february: {
-    label: "February",
+  [PaymentMethod.creditOrDebitCart]: {
+    label: "신용/체크카드 결제",
     color: "hsl(var(--chart-2))",
   },
-  march: {
-    label: "March",
+  [PaymentMethod.depositWithoutPassbook]: {
+    label: "무통장입금",
     color: "hsl(var(--chart-3))",
-  },
-  april: {
-    label: "April",
-    color: "hsl(var(--chart-4))",
-  },
-  may: {
-    label: "May",
-    color: "hsl(var(--chart-5))",
   },
 } satisfies ChartConfig;
 
 export function PieChartInteractive() {
-  const id = "pie-interactive";
-  const [activeMonth, setActiveMonth] = React.useState(desktopData[0].month);
+  const divRef = useRef<HTMLDivElement>(null);
+  const [activeMethod, setActiveMethod] = useState(PaymentMethod.digitalWallet);
 
-  const activeIndex = React.useMemo(
-    () => desktopData.findIndex((item) => item.month === activeMonth),
-    [activeMonth]
-  );
-  const months = React.useMemo(() => desktopData.map((item) => item.month), []);
+  const { data: auth } = useAuthStore();
+  const { allData, isLoading, getAllOrder } = useOrderStore();
+
+  const callback = () => {
+    if (!auth) return;
+    getAllOrder({ token: auth.token });
+  };
+
+  const handleDownload = async () => {
+    if (!divRef.current) return;
+
+    try {
+      const div = divRef.current;
+      await htmlToPng({ element: div });
+    } catch (error) {
+      console.error("다운로드 중 오류가 발생했습니다: ", error);
+    }
+  };
+
+  const id = "pie-interactive";
 
   return (
-    <Card data-chart={id} className="flex flex-col h-full">
-      <ChartStyle id={id} config={chartConfig} />
-      <CardHeader className="flex-row items-start space-y-0 pb-0">
-        <div className="grid gap-1">
-          <CardTitle>Pie Chart - Interactive</CardTitle>
-          <CardDescription>January - June 2024</CardDescription>
-        </div>
-        <Select value={activeMonth} onValueChange={setActiveMonth}>
-          <SelectTrigger
-            className="ml-auto h-7 w-[130px] rounded-lg pl-2.5"
-            aria-label="Select a value"
-          >
-            <SelectValue placeholder="Select month" />
-          </SelectTrigger>
-          <SelectContent align="end" className="rounded-xl">
-            {months.map((key) => {
-              const config = chartConfig[key as keyof typeof chartConfig];
-
-              if (!config) {
-                return null;
-              }
-
-              return (
-                <SelectItem
-                  key={key}
-                  value={key}
-                  className="rounded-lg [&_span]:flex"
-                >
-                  <div className="flex items-center gap-2 text-xs">
-                    <span
-                      className="flex h-3 w-3 shrink-0 rounded-sm"
-                      style={{
-                        backgroundColor: `var(--color-${key})`,
-                      }}
-                    />
-                    {config?.label}
-                  </div>
-                </SelectItem>
-              );
-            })}
-          </SelectContent>
-        </Select>
-      </CardHeader>
-      <CardContent className="flex flex-1 justify-center pb-0">
-        <ChartContainer
-          id={id}
-          config={chartConfig}
-          className="mx-auto aspect-square w-full max-w-[300px]"
-        >
-          <PieChart>
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent hideLabel />}
-            />
-            <Pie
-              data={desktopData}
-              dataKey="desktop"
-              nameKey="month"
-              innerRadius={60}
-              strokeWidth={5}
-              activeIndex={activeIndex}
-              activeShape={({
-                outerRadius = 0,
-                ...props
-              }: PieSectorDataItem) => (
-                <g>
-                  <Sector {...props} outerRadius={outerRadius + 10} />
-                  <Sector
-                    {...props}
-                    outerRadius={outerRadius + 25}
-                    innerRadius={outerRadius + 12}
-                  />
-                </g>
-              )}
+    <div className="flex flex-col h-full">
+      <Card data-chart={id} className="flex-1">
+        <div ref={divRef} className="flex flex-col h-full">
+          <ChartStyle id={id} config={chartConfig} />
+          <CardHeader className="flex-row items-start space-y-0 pb-0">
+            <div className="grid gap-1">
+              <CardTitle>파이 차트 - Interactive</CardTitle>
+              <CardDescription>
+                차트의 기간 범위를 기입해주세요.
+              </CardDescription>
+            </div>
+            <Select
+              value={activeMethod}
+              onValueChange={(value) => setActiveMethod(value as PaymentMethod)}
             >
-              <Label
-                content={({ viewBox }) => {
-                  if (viewBox && "cx" in viewBox && "cy" in viewBox) {
-                    return (
-                      <text
-                        x={viewBox.cx}
-                        y={viewBox.cy}
-                        textAnchor="middle"
-                        dominantBaseline="middle"
+              <SelectTrigger
+                className="ml-auto h-7 w-[130px] rounded-lg pl-2.5"
+                aria-label="Select a value"
+              >
+                <SelectValue placeholder="Select month" />
+              </SelectTrigger>
+              <SelectContent align="end" className="rounded-xl">
+                {[
+                  PaymentMethod.digitalWallet,
+                  PaymentMethod.creditOrDebitCart,
+                  PaymentMethod.depositWithoutPassbook,
+                ].map((key) => {
+                  const config = chartConfig[key as keyof typeof chartConfig];
+
+                  return (
+                    <SelectItem
+                      key={key}
+                      value={key}
+                      className="rounded-lg [&_span]:flex"
+                    >
+                      <div className="flex items-center gap-2 text-xs">
+                        <span
+                          className="flex h-3 w-3 shrink-0 rounded-sm"
+                          style={{ backgroundColor: `var(--color-${key})` }}
+                        />
+                        {config.label}
+                      </div>
+                    </SelectItem>
+                  );
+                })}
+              </SelectContent>
+            </Select>
+          </CardHeader>
+          <CardContent className="flex flex-1 items-center justify-center pb-0">
+            {!allData && (
+              <div className="flex">
+                <Button
+                  onClick={callback}
+                  disabled={isLoading}
+                  className="w-52 mx-auto my-8"
+                >
+                  {isLoading ? (
+                    <Loader className="text-zinc-400" />
+                  ) : (
+                    <>시각화 불러오기</>
+                  )}
+                </Button>
+              </div>
+            )}
+            {allData &&
+              (() => {
+                const {
+                  pie: { label },
+                } = orderStatistics({ orders: allData });
+
+                const activeIndex = label.findIndex(
+                  (item) => item.method === activeMethod
+                );
+
+                return (
+                  <ChartContainer
+                    id={id}
+                    config={chartConfig}
+                    className="mx-auto aspect-square w-full max-w-[300px]"
+                  >
+                    <PieChart>
+                      <ChartTooltip
+                        cursor={false}
+                        content={<ChartTooltipContent hideLabel />}
+                      />
+                      <Pie
+                        data={label.map((item) => ({
+                          ...item,
+                          fill: `var(--color-${item.method})`,
+                        }))}
+                        dataKey="count"
+                        nameKey="method"
+                        innerRadius={60}
+                        strokeWidth={5}
+                        activeIndex={activeIndex}
+                        activeShape={({
+                          outerRadius = 0,
+                          ...props
+                        }: PieSectorDataItem) => (
+                          <g>
+                            <Sector {...props} outerRadius={outerRadius + 10} />
+                            <Sector
+                              {...props}
+                              outerRadius={outerRadius + 25}
+                              innerRadius={outerRadius + 12}
+                            />
+                          </g>
+                        )}
                       >
-                        <tspan
-                          x={viewBox.cx}
-                          y={viewBox.cy}
-                          className="fill-foreground text-3xl font-bold"
-                        >
-                          {desktopData[activeIndex].desktop.toLocaleString()}
-                        </tspan>
-                        <tspan
-                          x={viewBox.cx}
-                          y={(viewBox.cy || 0) + 24}
-                          className="fill-muted-foreground"
-                        >
-                          Visitors
-                        </tspan>
-                      </text>
-                    );
-                  }
-                }}
-              />
-            </Pie>
-          </PieChart>
-        </ChartContainer>
-      </CardContent>
-    </Card>
+                        <Label
+                          content={({ viewBox }) => {
+                            if (viewBox && "cx" in viewBox && "cy" in viewBox) {
+                              return (
+                                <text
+                                  x={viewBox.cx}
+                                  y={viewBox.cy}
+                                  textAnchor="middle"
+                                  dominantBaseline="middle"
+                                >
+                                  <tspan
+                                    x={viewBox.cx}
+                                    y={viewBox.cy}
+                                    className="fill-foreground text-3xl font-bold"
+                                  >
+                                    {label[activeIndex].count}
+                                  </tspan>
+                                  <tspan
+                                    x={viewBox.cx}
+                                    y={(viewBox.cy || 0) + 24}
+                                    className="fill-muted-foreground"
+                                  >
+                                    결제 수
+                                  </tspan>
+                                </text>
+                              );
+                            }
+                          }}
+                        />
+                      </Pie>
+                    </PieChart>
+                  </ChartContainer>
+                );
+              })()}
+          </CardContent>
+        </div>
+      </Card>
+      <Button
+        variant="outline"
+        onClick={handleDownload}
+        disabled={!allData}
+        className="mt-3 w-full"
+      >
+        다운로드
+      </Button>
+    </div>
   );
 }
