@@ -26,11 +26,11 @@ const chartConfig = {
     label: "나이별 유저 수",
   },
   [Gender.FEMALE]: {
-    label: "Female",
+    label: "여성",
     color: "hsl(var(--chart-1))",
   },
   [Gender.MALE]: {
-    label: "Male",
+    label: "남성",
     color: "hsl(var(--chart-2))",
   },
 } satisfies ChartConfig;
@@ -95,6 +95,10 @@ export function BarChartInteractive() {
             <div className="flex">
               {[Gender.FEMALE, Gender.MALE].map((key) => {
                 const chart = key as keyof typeof chartConfig;
+                const num =
+                  total[
+                    (key as Gender.FEMALE) || (key as Gender.MALE)
+                  ].toLocaleString();
 
                 return (
                   <button
@@ -106,10 +110,8 @@ export function BarChartInteractive() {
                     <span className="text-xs text-muted-foreground">
                       {chartConfig[chart].label}
                     </span>
-                    <span className="text-lg font-bold leading-none sm:text-3xl">
-                      {total[
-                        (key as Gender.FEMALE) || (key as Gender.MALE)
-                      ].toLocaleString()}
+                    <span className="text-lg font-bold mx-auto leading-none sm:text-3xl">
+                      {num === "0" ? "-" : num}
                     </span>
                   </button>
                 );
@@ -122,7 +124,7 @@ export function BarChartInteractive() {
                 <Button
                   onClick={callback}
                   disabled={isLoading}
-                  className="w-52 mx-auto my-20"
+                  className="w-96 mx-auto my-20"
                 >
                   {isLoading ? (
                     <Loader className="text-zinc-400" />
@@ -132,37 +134,39 @@ export function BarChartInteractive() {
                 </Button>
               </div>
             )}
-            <ChartContainer
-              config={chartConfig}
-              className="aspect-auto h-[250px] w-full"
-            >
-              <BarChart
-                accessibilityLayer
-                data={interactive}
-                margin={{ left: 12, right: 12 }}
+            {allData && (
+              <ChartContainer
+                config={chartConfig}
+                className="aspect-auto h-[250px] w-full"
               >
-                <CartesianGrid vertical={false} />
-                <XAxis
-                  dataKey="birth"
-                  tickLine={false}
-                  axisLine={false}
-                  tickMargin={8}
-                  minTickGap={32}
-                />
-                <ChartTooltip
-                  content={
-                    <ChartTooltipContent
-                      className="w-[150px]"
-                      nameKey="views"
-                    />
-                  }
-                />
-                <Bar
-                  dataKey={activeChart}
-                  fill={`var(--color-${activeChart})`}
-                />
-              </BarChart>
-            </ChartContainer>
+                <BarChart
+                  accessibilityLayer
+                  data={interactive}
+                  margin={{ left: 12, right: 12 }}
+                >
+                  <CartesianGrid vertical={false} />
+                  <XAxis
+                    dataKey="birth"
+                    tickLine={false}
+                    axisLine={false}
+                    tickMargin={8}
+                    minTickGap={32}
+                  />
+                  <ChartTooltip
+                    content={
+                      <ChartTooltipContent
+                        className="w-[150px]"
+                        nameKey="views"
+                      />
+                    }
+                  />
+                  <Bar
+                    dataKey={activeChart}
+                    fill={`var(--color-${activeChart})`}
+                  />
+                </BarChart>
+              </ChartContainer>
+            )}
           </CardContent>
         </div>
       </Card>

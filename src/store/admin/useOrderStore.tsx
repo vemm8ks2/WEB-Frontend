@@ -5,8 +5,10 @@ import type { Order } from "@/types/order";
 
 interface State {
   data?: Page<Order>;
+  allData?: Order[];
   isLoading: boolean;
   getOrder: (params: { token: string; page?: number; size?: number }) => void;
+  getAllOrder: (params: { token: string }) => void;
 }
 
 export const useOrderStore = create<State>((set) => ({
@@ -32,6 +34,27 @@ export const useOrderStore = create<State>((set) => ({
       const { data }: ApiResponse<Page<Order>> = await res.json();
 
       set({ data });
+    } catch (e) {
+      console.error(e);
+    }
+
+    set({ isLoading: false });
+  },
+  getAllOrder: async ({ token }) => {
+    set({ isLoading: true });
+
+    try {
+      const endpoint = `${import.meta.env.VITE_API_URL}/admin/order/all`;
+
+      const res = await fetch(endpoint, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const { data }: ApiResponse<Order[]> = await res.json();
+
+      set({ allData: data });
     } catch (e) {
       console.error(e);
     }

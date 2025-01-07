@@ -52,7 +52,7 @@ export function AreaChartInteractive() {
   const { data: auth } = useAuthStore();
   const { allData, isLoading, getAllCustomer } = useCustomerStore();
 
-  const [timeRange, setTimeRange] = useState("90d");
+  const [timeRange, setTimeRange] = useState("730d");
 
   const callback = () => {
     if (!auth) return;
@@ -89,14 +89,14 @@ export function AreaChartInteractive() {
                 <SelectValue placeholder="Last 3 months" />
               </SelectTrigger>
               <SelectContent className="rounded-xl">
-                <SelectItem value="90d" className="rounded-lg">
-                  지난 3개월
+                <SelectItem value="730d" className="rounded-lg">
+                  지난 2년
                 </SelectItem>
-                <SelectItem value="30d" className="rounded-lg">
-                  지난 30일
+                <SelectItem value="545d" className="rounded-lg">
+                  지난 1년 6개월
                 </SelectItem>
-                <SelectItem value="7d" className="rounded-lg">
-                  지난 7일
+                <SelectItem value="365d" className="rounded-lg">
+                  지난 1년
                 </SelectItem>
               </SelectContent>
             </Select>
@@ -107,7 +107,7 @@ export function AreaChartInteractive() {
                 <Button
                   onClick={callback}
                   disabled={isLoading}
-                  className="w-52 mx-auto my-20"
+                  className="w-96 mx-auto my-20"
                 >
                   {isLoading ? (
                     <Loader className="text-zinc-400" />
@@ -138,20 +138,22 @@ const Chart = (props: { allData: User[]; timeRange: string }) => {
 
   const { interactive } = registerStatistics({ users: allData });
 
-  const filteredData = interactive.filter((item) => {
-    const date = new Date(item.date);
-    const referenceDate = new Date();
+  const filteredData = interactive
+    .filter((item) => {
+      const date = new Date(item.date);
+      const referenceDate = new Date();
 
-    let daysToSubtract = 90;
+      let daysToSubtract = 730;
 
-    if (timeRange === "30d") daysToSubtract = 30;
-    else if (timeRange === "7d") daysToSubtract = 7;
+      if (timeRange === "545d") daysToSubtract = 545;
+      else if (timeRange === "365d") daysToSubtract = 365;
 
-    const startDate = new Date(referenceDate);
-    startDate.setDate(startDate.getDate() - daysToSubtract);
+      const startDate = new Date(referenceDate);
+      startDate.setDate(startDate.getDate() - daysToSubtract);
 
-    return date >= startDate;
-  });
+      return date >= startDate;
+    })
+    .map((item) => ({ ...item, date: item.date.slice(0, 7) }));
 
   return (
     <ChartContainer
@@ -198,16 +200,10 @@ const Chart = (props: { allData: User[]; timeRange: string }) => {
           axisLine={false}
           tickMargin={8}
           minTickGap={32}
-          tickFormatter={(value) => new Date(value).toLocaleDateString()}
         />
         <ChartTooltip
           cursor={false}
-          content={
-            <ChartTooltipContent
-              labelFormatter={(value) => new Date(value).toLocaleDateString()}
-              indicator="dot"
-            />
-          }
+          content={<ChartTooltipContent indicator="dot" />}
         />
         <Area
           dataKey={Gender.FEMALE}

@@ -98,7 +98,10 @@ const setAreaChart = (users: User[]) => {
     result.area[dayOfWeek].count++;
     result.stacked[dayOfWeek][user.gender]++;
 
-    const date = user.createdAt.toString().split("T")[0];
+    // const date = user.createdAt.toString().split("T")[0];
+    const date = `${createdAt.getFullYear()}-${String(
+      createdAt.getMonth() + 1
+    ).padStart(2, "0")}`;
 
     if (!grouped[date]) {
       grouped[date] = {
@@ -114,7 +117,7 @@ const setAreaChart = (users: User[]) => {
   });
 
   for (const date in grouped) {
-    interactive.push({ date, ...grouped[date] });
+    interactive.push({ date: `${date}-01`, ...grouped[date] });
   }
 
   result.interactive = interactive;
