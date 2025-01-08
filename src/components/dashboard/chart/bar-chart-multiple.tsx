@@ -29,7 +29,13 @@ export function BarChartMultiple() {
   const { data: auth } = useAuthStore();
   const { allData, isLoading, getAllCustomer } = useCustomerStore();
 
-  const chartWrapperText: ChartWrapperText = { head: "바 차트 - Multiple" };
+  const chartWrapperText: ChartWrapperText = {
+    head: "바 차트 - Multiple",
+    headDesc: "과거부터 현재까지 전체 기간입니다.",
+    footerDesc: "연령대별, 성별 고객의 수 입니다.",
+    footerSubDesc:
+      "연령대별로 구분되어 있으며 세부적으로는 남성과 여성으로 다시 한 번 구분되으며 청록색은 여성, 붉은색은 남성입니다.",
+  };
 
   const callback = () => {
     if (!auth) return;

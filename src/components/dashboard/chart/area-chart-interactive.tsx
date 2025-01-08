@@ -70,15 +70,21 @@ export function AreaChartInteractive() {
     }
   };
 
+  const timeRangeToKorean = (timeRange: string) => {
+    if (timeRange === "730d") return "2년";
+    if (timeRange === "545d") return "1년 6개월";
+    if (timeRange === "365d") return "1년";
+  };
+
   return (
     <>
       <Card>
         <div ref={divRef}>
           <CardHeader className="flex items-center gap-2 space-y-0 border-b py-5 sm:flex-row">
             <div className="grid flex-1 gap-1 text-center sm:text-left">
-              <CardTitle>차트의 종류를 기입해주세요.</CardTitle>
+              <CardTitle>영역 차트 - Interactive</CardTitle>
               <CardDescription>
-                차트의 기간 범위를 기입해주세요.
+                지난 {timeRangeToKorean(timeRange)} 동안의 데이터입니다.
               </CardDescription>
             </div>
             <Select value={timeRange} onValueChange={setTimeRange}>
@@ -118,6 +124,9 @@ export function AreaChartInteractive() {
               </div>
             )}
             {allData && <Chart allData={allData} timeRange={timeRange} />}
+            <p className="text-sm text-center mt-2">
+              과거부터 현재까지 월별 남성과 여성 회원가입자 수 입니다.
+            </p>
           </CardContent>
         </div>
       </Card>

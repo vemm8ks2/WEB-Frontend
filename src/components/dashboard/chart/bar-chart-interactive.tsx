@@ -20,6 +20,7 @@ import registerStatistics from "@/utils/chart/register-statistics";
 import { Button } from "@/components/ui/button";
 import Loader from "@/components/ui/Loader";
 import htmlToPng from "@/utils/html-to-png";
+import genderToKorean from "@/utils/gender-to-korean";
 
 const chartConfig = {
   users: {
@@ -87,9 +88,9 @@ export function BarChartInteractive() {
         <div ref={divRef}>
           <CardHeader className="flex flex-col items-stretch space-y-0 border-b p-0 sm:flex-row">
             <div className="flex flex-1 flex-col justify-center gap-1 px-6 py-5 sm:py-6">
-              <CardTitle>차트의 종류를 기입해주세요.</CardTitle>
+              <CardTitle>바 차트 - Interactive</CardTitle>
               <CardDescription>
-                차트의 기간 범위를 기입해주세요.
+                과거부터 현재까지 전체 기간입니다.
               </CardDescription>
             </div>
             <div className="flex">
@@ -153,12 +154,7 @@ export function BarChartInteractive() {
                     minTickGap={32}
                   />
                   <ChartTooltip
-                    content={
-                      <ChartTooltipContent
-                        className="w-[150px]"
-                        nameKey="views"
-                      />
-                    }
+                    content={<ChartTooltipContent className="w-[150px]" />}
                   />
                   <Bar
                     dataKey={activeChart}
@@ -167,6 +163,10 @@ export function BarChartInteractive() {
                 </BarChart>
               </ChartContainer>
             )}
+            <p className="text-sm text-center mt-2">
+              회원가입한 모든 유저 중 {genderToKorean(activeChart)}의 태어난
+              연도 분포입니다.
+            </p>
           </CardContent>
         </div>
       </Card>

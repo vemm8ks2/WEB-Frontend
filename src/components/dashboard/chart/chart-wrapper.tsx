@@ -28,6 +28,7 @@ export function ChartWrapper(
     hasData?: boolean;
     isLoading?: boolean;
     callback?: () => void;
+    btnSize?: "medium" | "large";
   } & ChartWrapperText
 ) {
   const {
@@ -40,6 +41,7 @@ export function ChartWrapper(
     hasData = false,
     isLoading = false,
     callback,
+    btnSize = "medium",
   } = props;
 
   const divRef = useRef<HTMLDivElement>(null);
@@ -54,6 +56,9 @@ export function ChartWrapper(
       console.error("다운로드 중 오류가 발생했습니다: ", error);
     }
   };
+
+  const btnWidth =
+    btnSize === "medium" ? "w-52" : btnSize === "large" ? "w-96" : "";
 
   return (
     <>
@@ -71,7 +76,7 @@ export function ChartWrapper(
                 <Button
                   onClick={callback}
                   disabled={isLoading}
-                  className="w-52 mx-auto my-20"
+                  className={`${btnWidth} mx-auto my-20`}
                 >
                   {isLoading ? (
                     <Loader className="text-zinc-400" />
@@ -89,7 +94,7 @@ export function ChartWrapper(
                 <div className="flex items-center gap-2 font-medium leading-none">
                   {footerDesc || "차트의 설명을 기입해주세요."}
                 </div>
-                <div className="flex items-center gap-2 leading-none text-muted-foreground">
+                <div className="flex items-center gap-2 leading-tight text-muted-foreground">
                   {footerSubDesc || "차트의 상세 설명을 기입해주세요."}
                 </div>
               </div>

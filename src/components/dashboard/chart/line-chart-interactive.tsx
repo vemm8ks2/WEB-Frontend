@@ -21,6 +21,7 @@ import { Button } from "@/components/ui/button";
 import Loader from "@/components/ui/Loader";
 import htmlToPng from "@/utils/html-to-png";
 import orderStatistics from "@/utils/chart/order-statistics";
+import genderToKorean from "@/utils/gender-to-korean";
 
 const chartConfig = {
   users: {
@@ -90,9 +91,9 @@ export function LineChartInteractive() {
         <div ref={divRef}>
           <CardHeader className="flex flex-col items-stretch space-y-0 border-b p-0 sm:flex-row">
             <div className="flex flex-1 flex-col justify-center gap-1 px-6 py-5 sm:py-6">
-              <CardTitle>차트의 종류를 기입해주세요.</CardTitle>
+              <CardTitle>라인 차트 - Interactive</CardTitle>
               <CardDescription>
-                차트의 기간 범위를 기입해주세요.
+                과거부터 현재까지 전체 기간입니다.
               </CardDescription>
             </div>
             <div className="flex">
@@ -156,12 +157,7 @@ export function LineChartInteractive() {
                     minTickGap={32}
                   />
                   <ChartTooltip
-                    content={
-                      <ChartTooltipContent
-                        className="w-[150px]"
-                        nameKey="views"
-                      />
-                    }
+                    content={<ChartTooltipContent className="w-[150px]" />}
                   />
                   <Line
                     dataKey={activeChart}
@@ -173,6 +169,10 @@ export function LineChartInteractive() {
                 </LineChart>
               </ChartContainer>
             )}
+            <p className="text-sm text-center mt-4">
+              과거부터 현재까지 모든 기간 중 {genderToKorean(activeChart)}의
+              주문건수를 월별로 나타냅니다.
+            </p>
           </CardContent>
         </div>
       </Card>

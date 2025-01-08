@@ -27,7 +27,13 @@ export function AreaChartComponent() {
   const { data: auth } = useAuthStore();
   const { allData, isLoading, getAllCustomer } = useCustomerStore();
 
-  const chartWrapperText: ChartWrapperText = { head: "영역 차트" };
+  const chartWrapperText: ChartWrapperText = {
+    head: "영역 차트",
+    headDesc: "과거부터 현재까지 전체 기간입니다.",
+    footerDesc: "요일별 회원가입 수",
+    footerSubDesc:
+      "월요일부터 일요일 별로 회원가입 수를 연속된 그래프로 나타냅니다.",
+  };
 
   const callback = () => {
     if (!auth) return;

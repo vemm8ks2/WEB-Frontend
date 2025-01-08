@@ -30,6 +30,7 @@ import Loader from "@/components/ui/Loader";
 import orderStatistics from "@/utils/chart/order-statistics";
 import htmlToPng from "@/utils/html-to-png";
 import { useRef, useState } from "react";
+import paymentMethodKorean from "@/utils/payment-method-korean";
 
 const chartConfig = {
   "payment method": {
@@ -83,7 +84,7 @@ export function PieChartInteractive() {
             <div className="grid gap-1">
               <CardTitle>파이 차트 - Interactive</CardTitle>
               <CardDescription>
-                차트의 기간 범위를 기입해주세요.
+                과거부터 현재까지 전체 기간입니다.
               </CardDescription>
             </div>
             <Select
@@ -123,7 +124,7 @@ export function PieChartInteractive() {
               </SelectContent>
             </Select>
           </CardHeader>
-          <CardContent className="flex flex-1 items-center justify-center pb-0">
+          <CardContent className="flex flex-1 flex-col items-center justify-center pb-0">
             {!allData && (
               <div className="flex">
                 <Button
@@ -218,6 +219,10 @@ export function PieChartInteractive() {
                   </ChartContainer>
                 );
               })()}
+            <p className="text-sm text-center mt-4">
+              결제수단이 [{paymentMethodKorean(activeMethod)}]인 모든
+              주문건수입니다.
+            </p>
           </CardContent>
         </div>
       </Card>

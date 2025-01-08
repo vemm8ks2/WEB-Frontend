@@ -26,7 +26,13 @@ export function RadialChartText() {
   const { data: auth } = useAuthStore();
   const { allData, isLoading, getAllCustomer } = useCustomerStore();
 
-  const chartWrapperText: ChartWrapperText = { head: "방사형 차트 - Text" };
+  const chartWrapperText: ChartWrapperText = {
+    head: "방사형 차트 - Text",
+    headDesc: "과거부터 현재까지 전체 기간입니다.",
+    footerDesc: "여성 회원수",
+    footerSubDesc:
+      "전체 여성 회원수를 보여주며, 모든 성별 대비 여성의 비율만큼 붉은색으로 나타냅니다.",
+  };
 
   const callback = () => {
     if (!auth) return;

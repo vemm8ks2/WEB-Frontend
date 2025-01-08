@@ -27,7 +27,12 @@ export function LineChartDots() {
   const { data: auth } = useAuthStore();
   const { allData, isLoading, getAllOrder } = useOrderStore();
 
-  const chartWrapperText: ChartWrapperText = { head: "라인 차트 - Dots" };
+  const chartWrapperText: ChartWrapperText = {
+    head: "라인 차트 - Dots",
+    headDesc: "과거부터 현재까지 전체 기간입니다.",
+    footerDesc: "요일별 주문건수",
+    footerSubDesc: " 월요일부터 일요일까지 요일별 주문 건수입니다.",
+  };
 
   const callback = () => {
     if (!auth) return;
