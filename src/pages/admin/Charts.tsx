@@ -130,7 +130,7 @@ const Charts = () => {
             chartWrapperText={{
               head: "라인 차트",
               headDesc: "과거부터 현재까지 전체 기간 및 미래까지 포함합니다.",
-              footerDesc: "매출 예측",
+              footerDesc: "매출 예측 (ARIMA 모델)",
               footerSubDesc:
                 "과거 월별 매출액을 기반으로 미래의 매출액을 예측합니다. 파란선은 과거 매출 데이터이고, 붉은선은 예측 매출 데이터를 나타냅니다.",
             }}
