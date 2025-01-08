@@ -48,7 +48,6 @@ const Charts = () => {
         <div className="col-span-4">
           <CustomChart
             arg="결제수단"
-            btnSize="large"
             chartWrapperText={{
               head: "바 차트",
               headDesc: "과거부터 현재까지 전체 기간입니다.",
@@ -61,7 +60,6 @@ const Charts = () => {
         <div className="col-span-4">
           <CustomChart
             arg="월별주문"
-            btnSize="large"
             chartWrapperText={{
               head: "바 차트",
               headDesc: "과거부터 현재까지 전체 기간입니다.",
@@ -73,7 +71,6 @@ const Charts = () => {
         <div className="col-span-4">
           <CustomChart
             arg="시간대별"
-            btnSize="large"
             chartWrapperText={{
               head: "바 차트",
               headDesc: "과거부터 현재까지 전체 기간입니다.",
@@ -86,12 +83,104 @@ const Charts = () => {
         <div className="col-span-4">
           <CustomChart
             arg="유저별주문"
-            btnSize="large"
             chartWrapperText={{
               head: "파이 차트",
               headDesc: "과거부터 현재까지 전체 기간입니다.",
               footerDesc: "주문 건수 상위 유저 10명",
               footerSubDesc: "주문 건수가 제일 많은 유저 10명을 나타냅니다.",
+            }}
+          />
+        </div>
+        <div className="col-span-4">
+          <CustomChart
+            arg="인기상품"
+            chartWrapperText={{
+              head: "막대사탕 차트",
+              headDesc: "과거부터 현재까지 전체 기간입니다.",
+              footerDesc: "상위 인기 상품",
+              footerSubDesc: "가장 많이 팔린 상품 상위 10개를 나타냅니다.",
+            }}
+          />
+        </div>
+        <div className="col-span-4">
+          <CustomChart
+            arg="신발사이즈별"
+            chartWrapperText={{
+              head: "파이 차트",
+              headDesc: "과거부터 현재까지 전체 기간입니다.",
+              footerDesc: "신발 사이즈별 판매율",
+              footerSubDesc: "신발 사이즈별 판매율을 나타냅니다.",
+            }}
+          />
+        </div>
+        <div className="col-span-4">
+          <CustomChart
+            arg="옷사이즈별"
+            chartWrapperText={{
+              head: "파이 차트",
+              headDesc: "과거부터 현재까지 전체 기간입니다.",
+              footerDesc: "옷 사이즈별 판매율",
+              footerSubDesc: "옷 사이즈별 판매율을 나타냅니다.",
+            }}
+          />
+        </div>
+        <div className="col-span-4">
+          <CustomChart
+            arg="월별결제예측"
+            chartWrapperText={{
+              head: "라인 차트",
+              headDesc: "과거부터 현재까지 전체 기간 및 미래까지 포함합니다.",
+              footerDesc: "매출 예측",
+              footerSubDesc:
+                "과거 월별 매출액을 기반으로 미래의 매출액을 예측합니다. 파란선은 과거 매출 데이터이고, 붉은선은 예측 매출 데이터를 나타냅니다.",
+            }}
+          />
+        </div>
+        <div className="col-span-4">
+          <CustomChart
+            arg="성별별구매"
+            chartWrapperText={{
+              head: "바 차트",
+              headDesc: "과거부터 현재까지 전체 기간입니다.",
+              footerDesc: "성별 상위 구매 상품",
+              footerSubDesc:
+                "성별로 구분하여 가장 많이 판매된 제품 상위 5개를 나타냅니다.",
+            }}
+          />
+        </div>
+        <div className="col-span-4">
+          <CustomChart
+            arg="남성구매"
+            chartWrapperText={{
+              head: "바 차트",
+              headDesc: "과거부터 현재까지 전체 기간입니다.",
+              footerDesc: "남성 구매 상품 상위 10개",
+              footerSubDesc:
+                "남성이 가장 많이 구매한 상품 상위 10개를 나타냅니다.",
+            }}
+          />
+        </div>
+        <div className="col-span-4">
+          <CustomChart
+            arg="여성구매"
+            chartWrapperText={{
+              head: "바 차트",
+              headDesc: "과거부터 현재까지 전체 기간입니다.",
+              footerDesc: "여성 구매 상품 상위 10개",
+              footerSubDesc:
+                "여성이 가장 많이 구매한 상품 상위 10개를 나타냅니다.",
+            }}
+          />
+        </div>
+        <div className="col-span-4">
+          <CustomChart
+            arg="비밀성별구매"
+            chartWrapperText={{
+              head: "바 차트",
+              headDesc: "과거부터 현재까지 전체 기간입니다.",
+              footerDesc: "기타 성별 구매 상품 상위 10개",
+              footerSubDesc:
+                "기타 성별이 가장 많이 구매한 상품 상위 10개를 나타냅니다.",
             }}
           />
         </div>
