@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+
 import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
 
@@ -5,50 +7,27 @@ export function MainNav({
   className,
   ...props
 }: React.HTMLAttributes<HTMLElement>) {
+  const navigate = useNavigate();
+
   return (
     <nav
       className={cn("flex items-center space-x-4 lg:space-x-6", className)}
       {...props}
     >
-      <Button variant="link">
-        <a
-          href="/admin"
-          className="text-sm font-medium transition-colors hover:text-primary"
-        >
-          개요
-        </a>
+      <Button variant="link" onClick={() => navigate("/admin")}>
+        개요
       </Button>
-      <Button variant="link">
-        <a
-          href="/admin/product"
-          className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-        >
-          상품목록
-        </a>
+      <Button variant="link" onClick={() => navigate("/admin/product")}>
+        상품목록
       </Button>
-      <Button variant="link">
-        <a
-          href="/admin/order"
-          className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-        >
-          주문목록
-        </a>
+      <Button variant="link" onClick={() => navigate("/admin/order")}>
+        주문목록
       </Button>
-      <Button variant="link">
-        <a
-          href="/admin/customer"
-          className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-        >
-          유저목록
-        </a>
+      <Button variant="link" onClick={() => navigate("/admin/customer")}>
+        유저목록
       </Button>
-      <Button variant="link">
-        <a
-          href="/admin/charts"
-          className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-        >
-          시각화
-        </a>
+      <Button variant="link" onClick={() => navigate("/admin/charts")}>
+        시각화
       </Button>
     </nav>
   );
