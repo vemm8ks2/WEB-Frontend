@@ -65,7 +65,7 @@ export function ChartWrapper(
       <Card>
         <div ref={divRef}>
           <CardHeader>
-            <CardTitle>{head || "차트의 종류를 기입해주세요."}</CardTitle>
+            <CardTitle>{head || "차트의 설명을 기입해주세요."}</CardTitle>
             <CardDescription>
               {headDesc || "차트의 기간 범위를 기입해주세요."}
             </CardDescription>
@@ -92,7 +92,7 @@ export function ChartWrapper(
             <div className="flex w-full items-start gap-2 text-sm">
               <div className="grid gap-2">
                 <div className="flex items-center gap-2 font-medium leading-none">
-                  {footerDesc || "차트의 설명을 기입해주세요."}
+                  {footerDesc || "차트의 종류를 기입해주세요."}
                 </div>
                 <div className="flex items-center gap-2 leading-tight text-muted-foreground">
                   {footerSubDesc || "차트의 상세 설명을 기입해주세요."}
