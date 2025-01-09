@@ -46,77 +46,43 @@ const Charts = () => {
           </AlertDescription>
         </Alert>
 
-        <Tabs defaultValue="predict" className="col-span-12 w-full">
+        <Tabs defaultValue="analyze" className="col-span-12 w-full">
           <div className="w-full flex justify-center">
             <TabsList className="mb-4 w-96">
-              <TabsTrigger value="predict" className="w-full">
-                예측
-              </TabsTrigger>
               <TabsTrigger value="analyze" className="w-full">
                 분석
+              </TabsTrigger>
+              <TabsTrigger value="predict" className="w-full">
+                예측
               </TabsTrigger>
             </TabsList>
           </div>
 
-          <TabsContent value="predict" className="grid grid-cols-12 gap-4 mt-0">
-            <div className="col-span-12">
-              <CustomChart
-                arg="월별예측"
-                chartWrapperText={{
-                  head: "월별 매출액 예측 (다항회귀)",
-                  headDesc:
-                    "과거부터 현재까지 전체 기간 및 미래 3개월까지 포함합니다.",
-                  footerDesc: "선 그래프",
-                  footerSubDesc:
-                    "과거 월별 매출액을 바탕으로 미래 3개월의 매출액을 예측합니다. 주황색 점선은 예측을 위해 사용된 훈련 결과이고, 붉은색 점선은 훈련 결과를 바탕으로 미래 3개월의 매출을 예측한 선을 나타냅니다.",
-                }}
-                btnSize="large"
-              />
-            </div>
-            <div className="col-span-12">
-              <CustomChart
-                arg="월별매출예측"
-                chartWrapperText={{
-                  head: "월별 매출액 예측 (선형회귀)",
-                  headDesc:
-                    "과거부터 현재까지 전체 기간 및 미래 3개월까지 포함합니다.",
-                  footerDesc: "선 그래프",
-                  footerSubDesc:
-                    "과거 월별 매출액을 바탕으로 미래 3개월의 매출액을 예측합니다. 주황색 점선은 예측을 위해 사용된 훈련 결과이고, 붉은색 점선은 훈련 결과를 바탕으로 미래 3개월의 매출을 예측한 선을 나타냅니다.",
-                }}
-                btnSize="large"
-              />
-            </div>
-            <div className="col-span-12">
-              <CustomChart
-                arg="일별매출예측"
-                chartWrapperText={{
-                  head: "일별 매출액 예측 (선형회귀)",
-                  headDesc:
-                    "과거부터 현재까지 전체 기간 및 미래 50일까지 포함합니다.",
-                  footerDesc: "선 그래프",
-                  footerSubDesc:
-                    "과거 월별 매출액을 바탕으로 미래 50일의 매출액을 예측합니다. 주황색 점선은 예측을 위해 사용된 훈련 결과이고, 붉은색 점선은 훈련 결과를 바탕으로 미래 50일 간 매출을 예측한 선을 나타냅니다.",
-                }}
-                btnSize="large"
-              />
-            </div>
-            <div className="col-span-4">
-              <CustomChart
-                arg="월별결제예측"
-                chartWrapperText={{
-                  head: "매출 예측 (ARIMA)",
-                  headDesc:
-                    "과거부터 현재까지 전체 기간 및 미래까지 포함합니다.",
-                  footerDesc: "선 그래프",
-                  footerSubDesc:
-                    "과거 월별 매출액을 기반으로 미래의 매출액을 예측합니다. 파란선은 과거 매출 데이터이고, 붉은선은 예측 매출 데이터를 나타냅니다.",
-                }}
-              />
-            </div>
-          </TabsContent>
-
           <TabsContent value="analyze" className="grid grid-cols-12 gap-4 mt-0">
+            <div className="col-span-6">
+              <CustomChart
+                arg="판매금액"
+                chartWrapperText={{
+                  head: "주문 결제 금액 분포",
+                  headDesc: "과거부터 현재까지 전체 기간입니다.",
+                  footerDesc: "상자 수염 그림",
+                  footerSubDesc:
+                    "주문 목록의 총 결제 금액의 분포를 상자 수염 그림으로 나타냅니다.",
+                }}
+              />
+            </div>
+            <div className="col-span-6">
+              <CustomChart
+                arg="시간성별구매"
+                chartWrapperText={{
+                  head: "시간대별, 성별 구매량",
+                  headDesc: "과거부터 현재까지 전체 기간입니다.",
+                  footerDesc: "막대 그래프",
+                  footerSubDesc:
+                    "시간대별로 분류한 후 성별에 따른 구매 수량을 나타냅니다.",
+                }}
+              />
+            </div>
             <div className="col-span-6">
               <CustomChart
                 arg="여성구매"
@@ -282,6 +248,64 @@ const Charts = () => {
                   footerDesc: "지도 그래프",
                   footerSubDesc:
                     "대한민국 지역별 구매자 수를 지도에 나타냅니다.",
+                }}
+              />
+            </div>
+          </TabsContent>
+
+          <TabsContent value="predict" className="grid grid-cols-12 gap-4 mt-0">
+            <div className="col-span-12">
+              <CustomChart
+                arg="월별예측"
+                chartWrapperText={{
+                  head: "월별 매출액 예측 (다항회귀)",
+                  headDesc:
+                    "과거부터 현재까지 전체 기간 및 미래 3개월까지 포함합니다.",
+                  footerDesc: "선 그래프",
+                  footerSubDesc:
+                    "과거 월별 매출액을 바탕으로 미래 3개월의 매출액을 예측합니다. 주황색 점선은 예측을 위해 사용된 훈련 결과이고, 붉은색 점선은 훈련 결과를 바탕으로 미래 3개월의 매출을 예측한 선을 나타냅니다.",
+                }}
+                btnSize="large"
+              />
+            </div>
+            <div className="col-span-12">
+              <CustomChart
+                arg="월별매출예측"
+                chartWrapperText={{
+                  head: "월별 매출액 예측 (선형회귀)",
+                  headDesc:
+                    "과거부터 현재까지 전체 기간 및 미래 3개월까지 포함합니다.",
+                  footerDesc: "선 그래프",
+                  footerSubDesc:
+                    "과거 월별 매출액을 바탕으로 미래 3개월의 매출액을 예측합니다. 주황색 점선은 예측을 위해 사용된 훈련 결과이고, 붉은색 점선은 훈련 결과를 바탕으로 미래 3개월의 매출을 예측한 선을 나타냅니다.",
+                }}
+                btnSize="large"
+              />
+            </div>
+            <div className="col-span-12">
+              <CustomChart
+                arg="일별매출예측"
+                chartWrapperText={{
+                  head: "일별 매출액 예측 (선형회귀)",
+                  headDesc:
+                    "과거부터 현재까지 전체 기간 및 미래 50일까지 포함합니다.",
+                  footerDesc: "선 그래프",
+                  footerSubDesc:
+                    "과거 월별 매출액을 바탕으로 미래 50일의 매출액을 예측합니다. 주황색 점선은 예측을 위해 사용된 훈련 결과이고, 붉은색 점선은 훈련 결과를 바탕으로 미래 50일 간 매출을 예측한 선을 나타냅니다.",
+                }}
+                btnSize="large"
+              />
+            </div>
+            <div className="col-span-4">
+              <CustomChart
+                arg="월별결제예측"
+                chartWrapperText={{
+                  head: "매출 예측 (ARIMA)",
+                  headDesc:
+                    "과거부터 현재까지 전체 기간 및 미래까지 포함합니다.",
+                  footerDesc: "선 그래프",
+                  footerSubDesc:
+                    "과거 월별 매출액을 기반으로 미래의 매출액을 예측합니다. 파란선은 과거 매출 데이터이고, 붉은선은 예측 매출 데이터를 나타냅니다.",
                 }}
               />
             </div>
