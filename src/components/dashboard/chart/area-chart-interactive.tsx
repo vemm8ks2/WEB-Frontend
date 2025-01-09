@@ -82,7 +82,7 @@ export function AreaChartInteractive() {
         <div ref={divRef}>
           <CardHeader className="flex items-center gap-2 space-y-0 border-b py-5 sm:flex-row">
             <div className="grid flex-1 gap-1 text-center sm:text-left">
-              <CardTitle>영역 차트 - Interactive</CardTitle>
+              <CardTitle>월별 남성, 여성 회원가입자 수</CardTitle>
               <CardDescription>
                 지난 {timeRangeToKorean(timeRange)} 동안의 데이터입니다.
               </CardDescription>
@@ -125,7 +125,8 @@ export function AreaChartInteractive() {
             )}
             {allData && <Chart allData={allData} timeRange={timeRange} />}
             <p className="text-sm text-center mt-2">
-              과거부터 현재까지 월별 남성과 여성 회원가입자 수 입니다.
+              &#91;영역 그래프 - Interactive&#93; 과거부터 현재까지 월별 남성과
+              여성 회원가입자 수 입니다.
             </p>
           </CardContent>
         </div>

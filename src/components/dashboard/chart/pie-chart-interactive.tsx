@@ -82,7 +82,7 @@ export function PieChartInteractive() {
           <ChartStyle id={id} config={chartConfig} />
           <CardHeader className="flex-row items-start space-y-0 pb-0">
             <div className="grid gap-1">
-              <CardTitle>파이 차트 - Interactive</CardTitle>
+              <CardTitle>결제수단별 주문건수</CardTitle>
               <CardDescription>
                 과거부터 현재까지 전체 기간입니다.
               </CardDescription>
@@ -220,8 +220,8 @@ export function PieChartInteractive() {
                 );
               })()}
             <p className="text-sm text-center mt-4">
-              결제수단이 [{paymentMethodKorean(activeMethod)}]인 모든
-              주문건수입니다.
+              &#91;원 그래프 - Interactive&#93; 결제수단이{" "}
+              <b>{paymentMethodKorean(activeMethod)}</b>인 모든 주문건수입니다.
             </p>
           </CardContent>
         </div>

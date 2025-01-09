@@ -91,7 +91,7 @@ export function LineChartInteractive() {
         <div ref={divRef}>
           <CardHeader className="flex flex-col items-stretch space-y-0 border-b p-0 sm:flex-row">
             <div className="flex flex-1 flex-col justify-center gap-1 px-6 py-5 sm:py-6">
-              <CardTitle>라인 차트 - Interactive</CardTitle>
+              <CardTitle>월별 주문건수</CardTitle>
               <CardDescription>
                 과거부터 현재까지 전체 기간입니다.
               </CardDescription>
@@ -170,8 +170,8 @@ export function LineChartInteractive() {
               </ChartContainer>
             )}
             <p className="text-sm text-center mt-4">
-              과거부터 현재까지 모든 기간 중 {genderToKorean(activeChart)}의
-              주문건수를 월별로 나타냅니다.
+              &#91;선 그래프 - Interactive&#93; 과거부터 현재까지 모든 기간 중{" "}
+              {genderToKorean(activeChart)}의 주문건수를 월별로 나타냅니다.
             </p>
           </CardContent>
         </div>

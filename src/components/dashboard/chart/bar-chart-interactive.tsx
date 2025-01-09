@@ -88,7 +88,7 @@ export function BarChartInteractive() {
         <div ref={divRef}>
           <CardHeader className="flex flex-col items-stretch space-y-0 border-b p-0 sm:flex-row">
             <div className="flex flex-1 flex-col justify-center gap-1 px-6 py-5 sm:py-6">
-              <CardTitle>바 차트 - Interactive</CardTitle>
+              <CardTitle>남성, 여성 회원의 생년</CardTitle>
               <CardDescription>
                 과거부터 현재까지 전체 기간입니다.
               </CardDescription>
@@ -164,8 +164,8 @@ export function BarChartInteractive() {
               </ChartContainer>
             )}
             <p className="text-sm text-center mt-2">
-              회원가입한 모든 유저 중 {genderToKorean(activeChart)}의 태어난
-              연도 분포입니다.
+              &#91;막대 그래프 - Interactive&#93; 회원가입한 모든 유저 중{" "}
+              {genderToKorean(activeChart)}의 태어난 연도 분포입니다.
             </p>
           </CardContent>
         </div>

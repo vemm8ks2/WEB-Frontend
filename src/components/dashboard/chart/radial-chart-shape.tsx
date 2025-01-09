@@ -27,9 +27,9 @@ export function RadialChartShape() {
   const { allData, isLoading, getAllCustomer } = useCustomerStore();
 
   const chartWrapperText: ChartWrapperText = {
-    head: "방사형 차트 - Shape",
+    head: "남성 회원수",
     headDesc: "과거부터 현재까지 전체 기간입니다.",
-    footerDesc: "남성 회원수",
+    footerDesc: "방사형 그래프 - Shape",
     footerSubDesc:
       "전체 남성 회원수를 보여주며, 모든 성별 대비 남성의 비율만큼 붉은색으로 강조되어 나타냅니다.",
   };

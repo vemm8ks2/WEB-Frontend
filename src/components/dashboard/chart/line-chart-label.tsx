@@ -26,9 +26,9 @@ export function LineChartLabel() {
   const { allData, isLoading, getAllOrder } = useOrderStore();
 
   const chartWrapperText: ChartWrapperText = {
-    head: "라인 차트 - Label",
+    head: "요일별 주문건수",
     headDesc: "과거부터 현재까지 전체 기간입니다.",
-    footerDesc: "요일별 주문건수",
+    footerDesc: "선 그래프 - Label",
     footerSubDesc:
       "월요일부터 일요일까지 요일별로 구분되어 있으며, 차트의 숫자는 해당 요일에 들어왔던 모든 주문 건수를 나타냅니다.",
   };

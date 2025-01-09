@@ -36,9 +36,9 @@ export function AreaChartStacked() {
   const { allData, isLoading, getAllCustomer } = useCustomerStore();
 
   const chartWrapperText: ChartWrapperText = {
-    head: "영역 차트 - Stacked",
+    head: "요일별, 성별 회원가입 수",
     headDesc: "과거부터 현재까지 전체 기간입니다.",
-    footerDesc: "요일별, 성별 회원가입 수",
+    footerDesc: "영역 그래프 - Stacked",
     footerSubDesc:
       "월요일부터 일요일별, 성별 회원가입 수입니다. 청록색은 여성, 붉은색은 남성, 주황색은 기타입니다.",
   };

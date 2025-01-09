@@ -35,9 +35,9 @@ export function LineChartMultiple() {
   const { allData, isLoading, getAllOrder } = useOrderStore();
 
   const chartWrapperText: ChartWrapperText = {
-    head: "라인 차트 - Multiple",
+    head: "요일별 주문건수",
     headDesc: "과거부터 현재까지 전체 기간입니다.",
-    footerDesc: "요일별 주문건수",
+    footerDesc: "선 그래프 - Multiple",
     footerSubDesc:
       "월요일부터 일요일까지 요일별 주문건수입니다. 남성, 여성, 기타로 구분되어 있으며, 청록색은 여성, 붉은색은 남성, 주황색은 기타입니다.",
   };

@@ -39,9 +39,9 @@ export function PieChartDonutWithText() {
   const { allData, isLoading, getAllOrder } = useOrderStore();
 
   const chartWrapperText: ChartWrapperText = {
-    head: "파이 차트 - Donut with text",
+    head: "결제수단별 주문건수",
     headDesc: "과거부터 현재까지 전체 기간입니다.",
-    footerDesc: "결제수단별 주문건수",
+    footerDesc: "원 그래프 - Donut with text",
     footerSubDesc:
       "모든 주문건수를 결제수단별로 구분지어 나타냅니다. 청록색은 간편 결제, 붉은색은 신용/체크카드 결제, 검은색은 무통장입금입니다.",
   };

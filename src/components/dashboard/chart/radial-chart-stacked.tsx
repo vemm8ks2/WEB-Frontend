@@ -30,9 +30,9 @@ export function RadialChartStacked() {
   const { allData, isLoading, getAllCustomer } = useCustomerStore();
 
   const chartWrapperText: ChartWrapperText = {
-    head: "방사형 차트 - Stacked",
+    head: "남성, 여성 회원수",
     headDesc: "과거부터 현재까지 전체 기간입니다.",
-    footerDesc: "남성, 여성 회원수",
+    footerDesc: "방사형 그래프 - Stacked",
     footerSubDesc:
       "남성과 여성의 전체 회원수를 보여줍니다. 청록색은 여성의 비율이고, 붉은색은 남성의 비율입니다.",
   };

@@ -26,9 +26,9 @@ export function BarChartLabel() {
   const { allData, isLoading, getAllCustomer } = useCustomerStore();
 
   const chartWrapperText: ChartWrapperText = {
-    head: "바 차트",
+    head: "연령대별 고객의 수",
     headDesc: "과거부터 현재까지 전체 기간입니다.",
-    footerDesc: "연령대별 고객의 수 입니다.",
+    footerDesc: "막대 그래프",
     footerSubDesc:
       "연령대별로 구분되어 있으며 차트의 라벨은 연령대별 고객의 수입니다.",
   };
