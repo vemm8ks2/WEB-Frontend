@@ -61,6 +61,18 @@ const Charts = () => {
           <TabsContent value="analyze" className="grid grid-cols-12 gap-4 mt-0">
             <div className="col-span-6">
               <CustomChart
+                arg="상품가격분포"
+                chartWrapperText={{
+                  head: "상품 가격 분포",
+                  headDesc: "과거부터 현재까지 전체 기간입니다.",
+                  footerDesc: "상자 수염 그림",
+                  footerSubDesc:
+                    "상품 가격의 분포를 상자 수염 그림으로 나타냅니다.",
+                }}
+              />
+            </div>
+            <div className="col-span-6">
+              <CustomChart
                 arg="판매금액"
                 chartWrapperText={{
                   head: "주문 결제 금액 분포",
