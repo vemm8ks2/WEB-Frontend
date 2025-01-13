@@ -54,7 +54,7 @@ const Register = () => {
   };
 
   return (
-    <main className="w-full min-h-[calc(100vh-4rem)] flex justify-center items-center">
+    <main className="w-full min-h-[calc(100vh-4rem-44px)] flex justify-center items-center">
       <Card className="w-96 border-0 shadow-lg">
         <CardHeader>
           <CardTitle>회원가입</CardTitle>
