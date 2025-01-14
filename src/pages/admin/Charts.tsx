@@ -121,7 +121,7 @@ const Charts = () => {
             </div>
             <div className="col-span-6">
               <CustomChart
-                arg="비밀성별구매"
+                arg="기타성별구매"
                 chartWrapperText={{
                   head: "기타 성별 구매 상품 상위 10개",
                   headDesc: "과거부터 현재까지 전체 기간입니다.",
@@ -268,7 +268,7 @@ const Charts = () => {
           <TabsContent value="predict" className="grid grid-cols-12 gap-4 mt-0">
             <div className="col-span-12">
               <CustomChart
-                arg="월별예측"
+                arg="월별매출예측_다항회귀"
                 chartWrapperText={{
                   head: "월별 매출액 예측 (다항회귀)",
                   headDesc:
@@ -282,7 +282,7 @@ const Charts = () => {
             </div>
             <div className="col-span-12">
               <CustomChart
-                arg="월별매출예측"
+                arg="월별매출예측_선형회귀"
                 chartWrapperText={{
                   head: "월별 매출액 예측 (선형회귀)",
                   headDesc:
@@ -296,7 +296,7 @@ const Charts = () => {
             </div>
             <div className="col-span-12">
               <CustomChart
-                arg="일별매출예측"
+                arg="일별매출예측_선형회귀"
                 chartWrapperText={{
                   head: "일별 매출액 예측 (선형회귀)",
                   headDesc:
@@ -310,7 +310,7 @@ const Charts = () => {
             </div>
             <div className="col-span-4">
               <CustomChart
-                arg="월별결제예측"
+                arg="월별결제예측_ARIMA"
                 chartWrapperText={{
                   head: "매출 예측 (ARIMA)",
                   headDesc:
