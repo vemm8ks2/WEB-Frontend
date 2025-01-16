@@ -29,6 +29,7 @@ export function ChartWrapper(
     isLoading?: boolean;
     callback?: () => void;
     btnSize?: "medium" | "large";
+    btnId?: string;
   } & ChartWrapperText
 ) {
   const {
@@ -42,6 +43,7 @@ export function ChartWrapper(
     isLoading = false,
     callback,
     btnSize = "medium",
+    btnId,
   } = props;
 
   const divRef = useRef<HTMLDivElement>(null);
@@ -103,6 +105,7 @@ export function ChartWrapper(
         </div>
       </Card>
       <Button
+        {...(btnId && { id: btnId })}
         variant="outline"
         disabled={disableDonwload}
         onClick={handleDownload}

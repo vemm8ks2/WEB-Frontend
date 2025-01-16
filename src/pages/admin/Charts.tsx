@@ -62,6 +62,7 @@ const Charts = () => {
             <div className="col-span-6">
               <CustomChart
                 arg="월별회원가입비교"
+                btnId="월별회원가입비교"
                 chartWrapperText={{
                   head: "2023년 - 2024년 월별 회원가입자 수",
                   headDesc: "2023년 1월부터 2024년 12월까지 해당됩니다.",
@@ -74,6 +75,7 @@ const Charts = () => {
             <div className="col-span-6">
               <CustomChart
                 arg="월별회원가입24"
+                btnId="월별회원가입24"
                 chartWrapperText={{
                   head: "2024년 월별 회원가입자 수",
                   headDesc: "2024년 1월부터 12월까지 한 해가 해당됩니다.",
@@ -85,6 +87,7 @@ const Charts = () => {
             <div className="col-span-6">
               <CustomChart
                 arg="월별회원가입23"
+                btnId="월별회원가입23"
                 chartWrapperText={{
                   head: "2023년 월별 회원가입자 수",
                   headDesc: "2023년 1월부터 12월까지 한 해가 해당됩니다.",
@@ -96,6 +99,7 @@ const Charts = () => {
             <div className="col-span-12">
               <CustomChart
                 arg="지역내도시별분포"
+                btnId="지역내도시별분포"
                 chartWrapperText={{
                   head: "지역별 주문 수 통합",
                   headDesc: "과거부터 현재까지 전체 기간입니다.",
@@ -107,6 +111,7 @@ const Charts = () => {
             <div className="col-span-12">
               <CustomChart
                 arg="시도별배송지분포"
+                btnId="시도별배송지분포"
                 chartWrapperText={{
                   head: "시/도별 주문 수",
                   headDesc: "과거부터 현재까지 전체 기간입니다.",
@@ -118,6 +123,7 @@ const Charts = () => {
             <div className="col-span-12">
               <CustomChart
                 arg="유저생일분포"
+                btnId="유저생일분포"
                 chartWrapperText={{
                   head: "유저 생년 분포",
                   headDesc: "과거부터 현재까지 전체 기간입니다.",
@@ -130,6 +136,7 @@ const Charts = () => {
             <div className="col-span-6">
               <CustomChart
                 arg="나이대별생년분포"
+                btnId="나이대별생년분포"
                 chartWrapperText={{
                   head: "나이대별 유저 수",
                   headDesc: "과거부터 현재까지 전체 기간입니다.",
@@ -142,6 +149,7 @@ const Charts = () => {
             <div className="col-span-6">
               <CustomChart
                 arg="상품가격분포"
+                btnId="상품가격분포"
                 chartWrapperText={{
                   head: "상품 가격 분포",
                   headDesc: "과거부터 현재까지 전체 기간입니다.",
@@ -154,6 +162,7 @@ const Charts = () => {
             <div className="col-span-6">
               <CustomChart
                 arg="판매금액"
+                btnId="판매금액"
                 chartWrapperText={{
                   head: "주문 결제 금액 분포",
                   headDesc: "과거부터 현재까지 전체 기간입니다.",
@@ -166,6 +175,7 @@ const Charts = () => {
             <div className="col-span-6">
               <CustomChart
                 arg="시간성별구매"
+                btnId="시간성별구매"
                 chartWrapperText={{
                   head: "시간대별, 성별 구매량",
                   headDesc: "과거부터 현재까지 전체 기간입니다.",
@@ -178,6 +188,7 @@ const Charts = () => {
             <div className="col-span-6">
               <CustomChart
                 arg="여성구매"
+                btnId="여성구매"
                 chartWrapperText={{
                   head: "여성 구매 상품 상위 10개",
                   headDesc: "과거부터 현재까지 전체 기간입니다.",
@@ -190,6 +201,7 @@ const Charts = () => {
             <div className="col-span-6">
               <CustomChart
                 arg="남성구매"
+                btnId="남성구매"
                 chartWrapperText={{
                   head: "남성 구매 상품 상위 10개",
                   headDesc: "과거부터 현재까지 전체 기간입니다.",
@@ -202,6 +214,7 @@ const Charts = () => {
             <div className="col-span-6">
               <CustomChart
                 arg="기타성별구매"
+                btnId="기타성별구매"
                 chartWrapperText={{
                   head: "기타 성별 구매 상품 상위 10개",
                   headDesc: "과거부터 현재까지 전체 기간입니다.",
@@ -214,6 +227,7 @@ const Charts = () => {
             <div className="col-span-6">
               <CustomChart
                 arg="성별별구매"
+                btnId="성별별구매"
                 chartWrapperText={{
                   head: "성별 상위 구매 상품",
                   headDesc: "과거부터 현재까지 전체 기간입니다.",
@@ -226,6 +240,7 @@ const Charts = () => {
             <div className="col-span-8">
               <CustomChart
                 arg="카테고리성별구매"
+                btnId="카테고리성별구매"
                 chartWrapperText={{
                   head: "카테고리별, 성별 구매 횟수",
                   headDesc: "과거부터 현재까지 전체 기간입니다.",
@@ -239,6 +254,7 @@ const Charts = () => {
             <div className="col-span-4">
               <CustomChart
                 arg="옷사이즈별"
+                btnId="옷사이즈별"
                 chartWrapperText={{
                   head: "옷 사이즈별 판매율",
                   headDesc: "과거부터 현재까지 전체 기간입니다.",
@@ -250,6 +266,7 @@ const Charts = () => {
             <div className="col-span-8">
               <CustomChart
                 arg="월별매출"
+                btnId="월별매출"
                 chartWrapperText={{
                   head: "월별 매출",
                   headDesc: "과거부터 현재까지 전체 기간입니다.",
@@ -262,6 +279,7 @@ const Charts = () => {
             <div className="col-span-4">
               <CustomChart
                 arg="신발사이즈별"
+                btnId="신발사이즈별"
                 chartWrapperText={{
                   head: "신발 사이즈별 판매율",
                   headDesc: "과거부터 현재까지 전체 기간입니다.",
@@ -273,6 +291,7 @@ const Charts = () => {
             <div className="col-span-6">
               <CustomChart
                 arg="시간대별"
+                btnId="시간대별"
                 chartWrapperText={{
                   head: "시간대별 주문 건수",
                   headDesc: "과거부터 현재까지 전체 기간입니다.",
@@ -285,6 +304,7 @@ const Charts = () => {
             <div className="col-span-6">
               <CustomChart
                 arg="월별주문"
+                btnId="월별주문"
                 chartWrapperText={{
                   head: "월별 주문 건수",
                   headDesc: "과거부터 현재까지 전체 기간입니다.",
@@ -297,6 +317,7 @@ const Charts = () => {
             <div className="col-span-6">
               <CustomChart
                 arg="인기상품"
+                btnId="인기상품"
                 chartWrapperText={{
                   head: "상위 인기 상품",
                   headDesc: "과거부터 현재까지 전체 기간입니다.",
@@ -308,6 +329,7 @@ const Charts = () => {
             <div className="col-span-6">
               <CustomChart
                 arg="결제수단"
+                btnId="결제수단"
                 chartWrapperText={{
                   head: "결제수단별 주문 건수",
                   headDesc: "과거부터 현재까지 전체 기간입니다.",
@@ -320,6 +342,7 @@ const Charts = () => {
             <div className="col-span-4">
               <CustomChart
                 arg="유저별주문"
+                btnId="유저별주문"
                 chartWrapperText={{
                   head: "주문 건수 상위 유저 10명",
                   headDesc: "과거부터 현재까지 전체 기간입니다.",
@@ -333,6 +356,7 @@ const Charts = () => {
             <div className="col-span-12">
               <CustomChart
                 arg="지역별주문수"
+                btnId="지역별주문수"
                 btnSize="large"
                 chartWrapperText={{
                   head: "지역별 구매자 수",
@@ -349,6 +373,7 @@ const Charts = () => {
             <div className="col-span-12">
               <CustomChart
                 arg="월별매출예측_다항회귀"
+                btnId="월별매출예측_다항회귀"
                 chartWrapperText={{
                   head: "월별 매출액 예측 (다항회귀)",
                   headDesc:
@@ -363,6 +388,7 @@ const Charts = () => {
             <div className="col-span-12">
               <CustomChart
                 arg="월별매출예측_선형회귀"
+                btnId="월별매출예측_선형회귀"
                 chartWrapperText={{
                   head: "월별 매출액 예측 (선형회귀)",
                   headDesc:
@@ -377,6 +403,7 @@ const Charts = () => {
             <div className="col-span-12">
               <CustomChart
                 arg="일별매출예측_선형회귀"
+                btnId="일별매출예측_선형회귀"
                 chartWrapperText={{
                   head: "일별 매출액 예측 (선형회귀)",
                   headDesc:
@@ -391,6 +418,7 @@ const Charts = () => {
             <div className="col-span-4">
               <CustomChart
                 arg="월별결제예측_ARIMA"
+                btnId="월별결제예측_ARIMA"
                 chartWrapperText={{
                   head: "매출 예측 (ARIMA)",
                   headDesc:

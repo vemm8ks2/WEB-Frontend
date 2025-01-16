@@ -9,9 +9,10 @@ import type { ChartWrapperText } from "@/components/dashboard/chart/chart-wrappe
 export function CustomChart(props: {
   arg: string;
   btnSize?: "medium" | "large";
+  btnId?: string;
   chartWrapperText?: ChartWrapperText;
 }) {
-  const { arg, btnSize = "medium", chartWrapperText } = props;
+  const { arg, btnSize = "medium", btnId, chartWrapperText } = props;
 
   const { data: auth } = useAuthStore();
   const { getChart } = useCustomChartStore();
@@ -41,6 +42,7 @@ export function CustomChart(props: {
       isLoading={isLoading}
       callback={handleLoad}
       btnSize={btnSize}
+      {...(btnId && { btnId })}
       {...chartWrapperText}
     >
       <div
