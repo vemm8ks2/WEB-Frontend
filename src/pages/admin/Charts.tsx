@@ -61,6 +61,86 @@ const Charts = () => {
           <TabsContent value="analyze" className="grid grid-cols-12 gap-4 mt-0">
             <div className="col-span-6">
               <CustomChart
+                arg="월별회원가입비교"
+                chartWrapperText={{
+                  head: "2023년 - 2024년 월별 회원가입자 수",
+                  headDesc: "2023년 1월부터 2024년 12월까지 해당됩니다.",
+                  footerDesc: "막대 그래프",
+                  footerSubDesc:
+                    "2023년과 2024년의 월별 회원가입자 수를 나타냅니다.",
+                }}
+              />
+            </div>
+            <div className="col-span-6">
+              <CustomChart
+                arg="월별회원가입24"
+                chartWrapperText={{
+                  head: "2024년 월별 회원가입자 수",
+                  headDesc: "2024년 1월부터 12월까지 한 해가 해당됩니다.",
+                  footerDesc: "막대 그래프",
+                  footerSubDesc: "2024년 월별 회원가입자 수를 나타냅니다.",
+                }}
+              />
+            </div>
+            <div className="col-span-6">
+              <CustomChart
+                arg="월별회원가입23"
+                chartWrapperText={{
+                  head: "2023년 월별 회원가입자 수",
+                  headDesc: "2023년 1월부터 12월까지 한 해가 해당됩니다.",
+                  footerDesc: "막대 그래프",
+                  footerSubDesc: "2023년 월별 회원가입자 수를 나타냅니다.",
+                }}
+              />
+            </div>
+            <div className="col-span-12">
+              <CustomChart
+                arg="지역내도시별분포"
+                chartWrapperText={{
+                  head: "지역별 주문 수 통합",
+                  headDesc: "과거부터 현재까지 전체 기간입니다.",
+                  footerDesc: "막대 그래프",
+                  footerSubDesc: "지역별 주문 수를 나타냅니다.",
+                }}
+              />
+            </div>
+            <div className="col-span-12">
+              <CustomChart
+                arg="시도별배송지분포"
+                chartWrapperText={{
+                  head: "시/도별 주문 수",
+                  headDesc: "과거부터 현재까지 전체 기간입니다.",
+                  footerDesc: "막대 그래프",
+                  footerSubDesc: "시/도별 주문 건수를 나타냅니다.",
+                }}
+              />
+            </div>
+            <div className="col-span-12">
+              <CustomChart
+                arg="유저생일분포"
+                chartWrapperText={{
+                  head: "유저 생년 분포",
+                  headDesc: "과거부터 현재까지 전체 기간입니다.",
+                  footerDesc: "막대 그래프",
+                  footerSubDesc:
+                    "고객의 생년 별로 취합하였으며, 생년별 고객의 수를 나타냅니다.",
+                }}
+              />
+            </div>
+            <div className="col-span-6">
+              <CustomChart
+                arg="나이대별생년분포"
+                chartWrapperText={{
+                  head: "나이대별 유저 수",
+                  headDesc: "과거부터 현재까지 전체 기간입니다.",
+                  footerDesc: "막대 그래프",
+                  footerSubDesc:
+                    "나이대로 구분하여 생일을 취합하였으며, 나이대별 고객의 수를 나타냅니다.",
+                }}
+              />
+            </div>
+            <div className="col-span-6">
+              <CustomChart
                 arg="상품가격분포"
                 chartWrapperText={{
                   head: "상품 가격 분포",
