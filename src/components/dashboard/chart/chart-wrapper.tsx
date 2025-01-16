@@ -76,6 +76,7 @@ export function ChartWrapper(
             {!hasData && (
               <div className="flex">
                 <Button
+                  {...(btnId && { id: `get_${btnId}` })}
                   onClick={callback}
                   disabled={isLoading}
                   className={`${btnWidth} mx-auto my-20`}
@@ -105,7 +106,7 @@ export function ChartWrapper(
         </div>
       </Card>
       <Button
-        {...(btnId && { id: btnId })}
+        {...(btnId && { id: `download_${btnId}` })}
         variant="outline"
         disabled={disableDonwload}
         onClick={handleDownload}
